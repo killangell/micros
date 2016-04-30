@@ -9,7 +9,7 @@ do
     if [ -d $dir ];then
 		print_ln LEVEL_INFO "Enter into folder $dir"
 		cd $dir
-		sh test_start.sh
+		sh test_all.sh
 		cd ..
 	fi
 done
