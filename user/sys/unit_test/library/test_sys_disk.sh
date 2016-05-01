@@ -7,7 +7,7 @@ test_disk_func_index="null"
 test_disk_func_arr="null"
 test_disk_func_iterator="null"
 
-DISK_UNIT_TEST_DIR="$SYS_LOG_DIR/temp"
+DISK_UNIT_TEST_DIR="$SYS_LOG_DIR/unit_test/library"
 mkdir -p $DISK_UNIT_TEST_DIR
 
 #set -xv

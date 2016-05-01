@@ -10,29 +10,6 @@ function is_valid_variable()
 	return $TRUE
 }
 
-#@in  1: System root path
-function set_sys_root_dir()
-{
-	dir=$1	
-	SYS_ROOT=$dir
-	
-	export PATH=$PATH:$SYS_ROOT:$SYS_CONF_DIR:$SYS_LIBRARY_DIR:$SYS_LOG_DIR
-	export PATH=$PATH:$SYS_MOUNT_DIR:$SYS_OUTPUT_DIR:$SYS_TEMP_DIR:$SYS_TOOLS_DIR
-	export PATH=$PATH:$SYS_UTEST_DIR:$SYS_USER_DIR
-	export SYS_ROOT="$SYS_ROOT"
-	export SYS_CONF_DIR="$SYS_ROOT/conf"
-	export SYS_LIBRARY_DIR="$SYS_ROOT/library"
-	export SYS_LOG_DIR="$SYS_ROOT/log"
-	export SYS_MOUNT_DIR="$SYS_ROOT/mount"
-	export SYS_OUTPUT_DIR="$SYS_ROOT/output"
-	export SYS_TEMP_DIR="$SYS_ROOT/temp"
-	export SYS_TOOLS_DIR="$SYS_ROOT/tools"
-	export SYS_UTEST_DIR="$SYS_UTEST_DIR"
-	export SYS_USER_DIR="$SYS_ROOT/user"
-	
-	return $TRUE
-}
-
 #@out 1: System output path
 function get_sys_output_dir()
 {

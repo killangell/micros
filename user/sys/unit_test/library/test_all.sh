@@ -29,7 +29,7 @@ do
 	${unit_test_func_iterator}
 	if [ $? -eq 0 ];then
 		print_head LEVEL_INFO "list $unit_test_func_index: ${unit_test_func_iterator} failed!!!\n\n"
-		exit 0
+		exit $FALSE
 	else
 		print_head ERROR_INFO "list $unit_test_func_index: ${unit_test_func_iterator} passed...\n\n"
 	fi
@@ -40,4 +40,4 @@ done
 
 show_sh_end_banner
 
-exit 1
+exit $TRUE

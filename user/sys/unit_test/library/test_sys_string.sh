@@ -7,7 +7,7 @@ test_utils_func_index="null"
 test_utils_func_arr="null"
 test_utils_func_iterator="null"
 
-STRING_UNIT_TEST_DIR="$SYS_LOG_DIR/temp"
+STRING_UNIT_TEST_DIR="$SYS_LOG_DIR/unit_test/library"
 mkdir -p $STRING_UNIT_TEST_DIR
 
 #set -xv

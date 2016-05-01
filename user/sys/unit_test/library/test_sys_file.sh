@@ -7,14 +7,14 @@ test_file_func_index="null"
 test_file_func_arr="null"
 test_file_func_iterator="null"
 
-FILE_UNIT_TEST_DIR="$SYS_LOG_DIR/temp"
+FILE_UNIT_TEST_DIR="$SYS_LOG_DIR/unit_test/library"
 mkdir -p $FILE_UNIT_TEST_DIR
 
 #set -xv
 #@out 1: true(1)/false(0)
 function test_is_file_exist_1()
 {
-	test_file=$RUNNING_DIR/file.is_file_exist
+	test_file=$FILE_UNIT_TEST_DIR/file.is_file_exist
 	
 	rm -rf $test_file
 	is_file_exist $test_file
@@ -28,7 +28,7 @@ function test_is_file_exist_1()
 #@out 1: true(1)/false(0)
 function test_is_file_exist_2()
 {
-	test_file=$RUNNING_DIR/file.is_file_exist
+	test_file=$FILE_UNIT_TEST_DIR/file.is_file_exist
 	
 	touch $test_file
 	is_file_exist $test_file
