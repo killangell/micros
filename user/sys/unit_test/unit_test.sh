@@ -2,6 +2,9 @@
 
 #echo PATH=$PATH
 
+sh sys_loop_subfolder_and_exec.sh $SYS_UTEST_DIR "test_all.sh"
+
+:<<AA
 source sys_debug.sh
 
 for dir in $SYS_UTEST_DIR/*
@@ -13,4 +16,4 @@ do
 		cd ..
 	fi
 done
-
+AA

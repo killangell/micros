@@ -33,3 +33,14 @@ SYS_EXPECT_KS_SEGMENT_POST_FILE="$SYS_OUTPUT_DIR/ks-segment-post.out"
 sh unit_test.sh
 
 
+export SYS_USER_PHASE1_DIR="$SYS_USER_DIR/phase1"
+export SYS_USER_PHASE2_DIR="$SYS_USER_DIR/phase2"
+export SYS_USER_PHASE3_DIR="$SYS_USER_DIR/phase3"
+export PATH=$PATH:$SYS_USER_PHASE1_DIR:$SYS_USER_PHASE2_DIR:$SYS_USER_PHASE3_DIR
+
+sh phase1_start.sh
+
+sh phase2_start.sh
+
+sh phase3_start.sh
+
