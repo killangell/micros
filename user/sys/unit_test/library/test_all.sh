@@ -28,10 +28,10 @@ do
 	print_head $LEVEL_INFO "list $unit_test_func_index: ${unit_test_func_iterator} begin...\n"
 	${unit_test_func_iterator}
 	if [ $? -eq 0 ];then
-		print_head $LEVEL_INFO "list $unit_test_func_index: ${unit_test_func_iterator} failed!!!\n\n"
+		print_head $LEVEL_ERROR "list $unit_test_func_index: ${unit_test_func_iterator} failed!!!\n\n"
 		exit $FALSE
 	else
-		print_head ERROR_INFO "list $unit_test_func_index: ${unit_test_func_iterator} passed...\n\n"
+		print_head $LEVEL_INFO "list $unit_test_func_index: ${unit_test_func_iterator} passed...\n\n"
 	fi
 	
 	let unit_test_func_index=$unit_test_func_index+1

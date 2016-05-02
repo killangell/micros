@@ -30,7 +30,7 @@ Number  Start   End     Size    File system  Name     Flags
 	real_unit="null"
 	
 	parse_disk_size_file $DISK_UNIT_TEST_DIR/$FUNCNAME.test real_size real_unit
-	printf "  %s  " "$real_size,$real_unit"
+	#printf "  %s  " "$real_size,$real_unit"
 	if [ $real_size != $expect_size ];then
 		return $FALSE 
 	fi
@@ -77,7 +77,7 @@ function test_get_memory_size()
 	mem_unit="null"
 	
 	get_memory_size mem_size mem_unit
-	printf "  %s  " "$mem_size,$mem_unit"
+	#printf "  %s  " "$mem_size,$mem_unit"
 	
 	return $TRUE
 }
@@ -89,7 +89,7 @@ function test_get_disk_partition_count()
 	
 	get_disk_partition_count $drive_name partition_count
 	
-	printf "  %s  " "$drive_name,$partition_count"
+	#printf "  %s  " "$drive_name,$partition_count"
 	
 	return $TRUE
 }
@@ -131,7 +131,7 @@ function test_get_disk_partition_end_size()
 	for((i=1;i<=$partition_count;i++));do
 		partition_index=$i
 		get_disk_partition_end_size $drive_name $partition_index end_size
-		printf "  %s  " "$drive_name,$partition_index,$end_size"
+		#printf "  %s  " "$drive_name,$partition_index,$end_size"
 	done
 	
 	return $TRUE

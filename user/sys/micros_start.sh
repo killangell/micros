@@ -31,8 +31,11 @@ export SYS_EXPECT_KS_SEGMENT_POST_FILE="$SYS_OUTPUT_DIR/ks-segment-post.out"
 
 source sys_debug.sh
 set_debug_level $LEVEL_NONE
+
 #Step 1: Unit test
 sh unit_test.sh
+
+set_debug_level $LEVEL_INFO
 
 export SYS_USER_PHASE1_DIR="$SYS_USER_DIR/phase1"
 export SYS_USER_PHASE2_DIR="$SYS_USER_DIR/phase2"
