@@ -232,13 +232,13 @@ function test_disk_all_funcs()
 	
 	for test_disk_func_iterator in ${test_disk_func_arr[*]}  
 	do  
-		print_head LEVEL_INFO "func $test_disk_func_index: ${test_disk_func_iterator}"
+		print_head $LEVEL_INFO "func $test_disk_func_index: ${test_disk_func_iterator}"
 		${test_disk_func_iterator}
 		if [ $? -eq 0 ];then
-			print_body LEVEL_INFO " ... failed\n"
+			print_body $LEVEL_INFO " ... failed\n"
 			return $FALSE
 		else
-			print_body LEVEL_INFO " ... passed\n"
+			print_body $LEVEL_INFO " ... passed\n"
 		fi
 		
 		let test_disk_func_index=$test_disk_func_index+1

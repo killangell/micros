@@ -55,13 +55,13 @@ function test_string_all_funcs()
 	
 	for test_utils_func_iterator in ${test_utils_func_arr[*]}  
 	do  
-		print_head LEVEL_INFO "func $test_utils_func_index: ${test_utils_func_iterator}"
+		print_head $LEVEL_INFO "func $test_utils_func_index: ${test_utils_func_iterator}"
 		${test_utils_func_iterator}
 		if [ $? -eq 0 ];then
-			print_body LEVEL_INFO " ... failed\n"
+			print_body $LEVEL_INFO " ... failed\n"
 			return 0
 		else
-			print_body LEVEL_INFO " ... passed\n"
+			print_body $LEVEL_INFO " ... passed\n"
 		fi
 		
 		let test_utils_func_index=$test_utils_func_index+1

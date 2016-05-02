@@ -138,13 +138,13 @@ function test_partition_conf_parser_all_funcs()
 	
 	for test_partition_conf_parser_func_iterator in ${test_partition_conf_parser_func_arr[*]}  
 	do  
-		print_head LEVEL_INFO "func $test_partition_conf_parser_func_index: ${test_partition_conf_parser_func_iterator}"
+		print_head $LEVEL_INFO "func $test_partition_conf_parser_func_index: ${test_partition_conf_parser_func_iterator}"
 		${test_partition_conf_parser_func_iterator}
 		if [ $? -eq 0 ];then
-			print_body LEVEL_INFO " ... failed\n"
+			print_body $LEVEL_INFO " ... failed\n"
 			return 0
 		else
-			print_body LEVEL_INFO " ... passed\n"
+			print_body $LEVEL_INFO " ... passed\n"
 		fi
 		
 		let test_partition_conf_parser_func_index=$test_partition_conf_parser_func_index+1

@@ -1,14 +1,29 @@
 #!/bin/sh
 
-LEVEL_INFO=1
-LEVEL_ERROR=2
-LEVEL_FATAL=3
+export LEVEL_NONE=0
+export LEVEL_INFO=1
+export LEVEL_ERROR=2
+export LEVEL_FATAL=3
 
 #Debug that level >= DEBUG_LEVEL will show on screen(console).
 #e.g. : DEBUG_LEVEL=LEVEL_INFO, it indicates that all debug info will show on screen.
 #e.g. : DEBUG_LEVEL=LEVEL_ERROR, it indicates that both LEVEL_ERROR and LEVEL_FATAL info will show on screen.
 #e.g. : DEBUG_LEVEL=LEVEL_FATAL, it indicates that only LEVEL_FATAL info will show on screen.
-DEBUG_LEVEL=LEVEL_INFO
+export DEBUG_LEVEL #=$LEVEL_NONE
+
+#@in  1: Debug level
+function set_debug_level()
+{
+	DEBUG_LEVEL=$1
+	return $TRUE
+}
+
+#@out 1: Debug level
+function get_debug_level()
+{
+	eval $1=$DEBUG_LEVEL
+	return $TRUE
+}
 
 #@in  1: sh full name
 #@out 2: Last name
@@ -28,26 +43,22 @@ function print_ln()
 	sh_name=$0
 	level=$1
 	info=$2
+	#echo $FUNCNAME:DEBUG_LEVEL=$DEBUG_LEVEL
+
+	if [ $DEBUG_LEVEL -eq $LEVEL_NONE -o $level -lt $DEBUG_LEVEL ];then
+		return $TRUE
+	fi
+
+	#if [ $level -lt $DEBUG_LEVEL ];then
+	#	return $TRUE
+	#fi
 	
 	get_sh_last_name $sh_name last_name
-	#printf "[%-15s] " $sh_name 
-	printf "[%-15s] " $last_name 
+	
+	printf "[%-15s] " $last_name
 	echo $info 
-}
 
-#@in 1: level
-#@in 2: info
-#Desc : When call & pass $2 to this function, you must surround $2 with sign " otherwise $2 will be splited by blank space
-function print_head2()
-{
-	sh_name=$0
-	level=$1
-	info=$2
-	
-	get_sh_last_name $sh_name last_name
-
-	printf "[%-15s] " $last_name 
-	printf "$info"
+	return $TRUE
 }
 
 #@in 1: level
