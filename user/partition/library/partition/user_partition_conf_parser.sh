@@ -12,7 +12,7 @@ function get_conf_dest_drive()
 	while read line
 	do	
 		is_useless_line $line
-		if [ $? -eq 1 ];then
+		if [ $? -eq $TRUE ];then
 			continue
 		fi
 		

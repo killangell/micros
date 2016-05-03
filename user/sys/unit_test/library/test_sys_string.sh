@@ -2,11 +2,6 @@ source sys_debug.sh
 source sys_string.sh
 
 
-#Global define, should be unique in system
-test_utils_func_index="null"
-test_utils_func_arr="null"
-test_utils_func_iterator="null"
-
 STRING_UNIT_TEST_DIR="$SYS_LOG_DIR/unit_test/library"
 mkdir -p $STRING_UNIT_TEST_DIR
 
@@ -237,7 +232,7 @@ function test_is_useless_line()
 }
 
 #Test list
-test_utils_func_arr=(
+test_string_func_arr=(
 	test_get_last_item_by_split_1
 	test_get_last_item_by_split_2
 	test_parse_format_string_by_splitter_1
@@ -249,24 +244,6 @@ test_utils_func_arr=(
 	test_is_useless_line
 )
 
-function test_string_all_funcs()
-{
-	test_utils_func_index=1
-	
-	for test_utils_func_iterator in ${test_utils_func_arr[*]}  
-	do  
-		print_head $LEVEL_INFO "func $test_utils_func_index: ${test_utils_func_iterator}"
-		${test_utils_func_iterator}
-		if [ $? -eq 0 ];then
-			print_body $LEVEL_INFO " ... failed\n"
-			return $FALSE
-		else
-			print_body $LEVEL_INFO " ... passed\n"
-		fi
-		
-		let test_utils_func_index=$test_utils_func_index+1
-	done 
-	
-	return $TRUE
-}
+source sys_loop_array_and_exec.sh ${test_string_func_arr[*]}
 
+exit $TRUE

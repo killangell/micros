@@ -217,7 +217,7 @@ function test_partition_ks_converter_all_funcs()
 	do  
 		print_head $LEVEL_INFO "func $test_partition_ks_converter_func_index: ${test_partition_ks_converter_func_iterator}"
 		${test_partition_ks_converter_func_iterator}
-		if [ $? -eq 0 ];then
+		if [ $? -eq $FALSE ];then
 			print_body $LEVEL_INFO " ... failed\n"
 			return $FALSE
 		else

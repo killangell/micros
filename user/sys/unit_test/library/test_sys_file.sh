@@ -2,11 +2,6 @@ source sys_debug.sh
 source sys_file.sh
 
 
-#Global define, should be unique in system
-test_file_func_index="null"
-test_file_func_arr="null"
-test_file_func_iterator="null"
-
 FILE_UNIT_TEST_DIR="$SYS_LOG_DIR/unit_test/library"
 mkdir -p $FILE_UNIT_TEST_DIR
 
@@ -65,24 +60,6 @@ test_file_func_arr=(
 	test_dbg_wr2file_ln
 )
 
-function test_file_all_funcs()
-{
-	test_file_func_index=1
-	
-	for test_file_func_iterator in ${test_file_func_arr[*]}  
-	do  
-		print_head $LEVEL_INFO "func $test_file_func_index: ${test_file_func_iterator}"
-		${test_file_func_iterator}
-		if [ $? -eq 0 ];then
-			print_body $LEVEL_INFO " ... failed\n"
-			return $FALSE
-		else
-			print_body $LEVEL_INFO " ... passed\n"
-		fi
-		
-		let test_file_func_index=$test_file_func_index+1
-	done 
-	
-	return $TRUE
-}
+source sys_loop_array_and_exec.sh ${test_file_func_arr[*]}
 
+exit $TRUE

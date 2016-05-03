@@ -13,7 +13,6 @@ function get_last_item_by_splitter()
 	return $TRUE
 }
 
-
 #@in  1: Full string    (e.g.: /mnt/hgfs/VMShareFolder/linux-auto-installation/modules/partition)
 #@in  2: Splitter	    (e.g.: /)
 #@out 3: Result number	(e.g.: 6)

@@ -1,12 +1,6 @@
 source sys_debug.sh
 source sys_disk.sh
 
-
-#Global define, should be unique in system
-test_disk_func_index="null"
-test_disk_func_arr="null"
-test_disk_func_iterator="null"
-
 DISK_UNIT_TEST_DIR="$SYS_LOG_DIR/unit_test/library"
 mkdir -p $DISK_UNIT_TEST_DIR
 
@@ -226,24 +220,6 @@ test_disk_func_arr=(
 	test_parse_pv_size_from_cmd
 )
 
-function test_disk_all_funcs()
-{
-	test_disk_func_index=1
-	
-	for test_disk_func_iterator in ${test_disk_func_arr[*]}  
-	do  
-		print_head $LEVEL_INFO "func $test_disk_func_index: ${test_disk_func_iterator}"
-		${test_disk_func_iterator}
-		if [ $? -eq 0 ];then
-			print_body $LEVEL_INFO " ... failed\n"
-			return $FALSE
-		else
-			print_body $LEVEL_INFO " ... passed\n"
-		fi
-		
-		let test_disk_func_index=$test_disk_func_index+1
-	done 
-	
-	return $TRUE
-}
+source sys_loop_array_and_exec.sh ${test_disk_func_arr[*]}
 
+exit $TRUE

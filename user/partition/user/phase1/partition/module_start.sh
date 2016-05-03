@@ -19,3 +19,10 @@ export PT_KS_SEGMENT_PARTITION_FILE="$SYS_EXPECT_KS_SEGMENT_PARTITION_FILE"
 export PT_KS_SEGMENT_PRE_FILE="$SYS_EXPECT_KS_SEGMENT_PRE_FILE"
 export PT_KS_SEGMENT_POST_FILE="$SYS_EXPECT_KS_SEGMENT_POST_FILE"
 
+export PT_TEMP_DIR="$SYS_TEMP_DIR/partition"
+mkdir -p $PT_TEMP_DIR
+export PT_PARTITION_SIZING_FILE="$PT_TEMP_DIR/partition_sizing.out"
+
+#User partitoin file here
+user_partition_file="user_partition.sample.bios-lvm"
+sh user_partition_sizing.sh $user_partition_file $PT_PARTITION_SIZING_FILE

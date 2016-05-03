@@ -23,7 +23,7 @@ do
 		echo last_name=$last_name
 		
 		tar -zxvf $last_name 
-		if [ $? -eq 0 ];then
+		if [ $? -eq $FALSE ];then
 			rm -rf $last_name
 		fi
 	fi

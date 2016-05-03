@@ -1,9 +1,10 @@
 #!/bin/sh
 
 export LEVEL_NONE=0
-export LEVEL_INFO=1
-export LEVEL_ERROR=2
-export LEVEL_FATAL=3
+export LEVEL_LIB=1
+export LEVEL_INFO=2
+export LEVEL_ERROR=3
+export LEVEL_FATAL=4
 
 #Debug that level >= DEBUG_LEVEL will show on screen(console).
 #e.g. : DEBUG_LEVEL=LEVEL_INFO, it indicates that all debug info will show on screen.
