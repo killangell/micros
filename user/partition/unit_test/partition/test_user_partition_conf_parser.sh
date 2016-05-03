@@ -36,10 +36,10 @@ data:max:lvm:ext4" > $get_conf_dest_drive_input
 	get_conf_dest_drive $get_conf_dest_drive_input real
 	
 	if [ $expect != $real ];then
-		return 0
+		return $FALSE
 	fi
 	
-	return 1
+	return $TRUE
 }
 
 
@@ -72,16 +72,16 @@ data:max:lvm:ext4" > $get_partition_info_by_name_1_input
 	get_conf_partition_info_by_name $get_partition_info_by_name_1_input $name real_size real_loca real_fs_type
 	#echo " ",$name,$real_size,$real_loca,$real_fs_type
 	if [ $expect_size != $real_size ];then
-		return 0
+		return $FALSE
 	fi
 	if [ $expect_loca != $real_loca ];then
-		return 0
+		return $FALSE
 	fi
 	if [ $expect_fs_type != $real_fs_type ];then
-		return 0
+		return $FALSE
 	fi
 	
-	return 1
+	return $TRUE
 }
 
 #return: true(1)/false(0)
@@ -113,16 +113,16 @@ data:max:lvm:ext4" > $get_partition_info_by_name_2_input
 	get_conf_partition_info_by_name $get_partition_info_by_name_2_input $name real_size real_loca real_fs_type
 	#echo " ",$name,$real_size,$real_loca,$real_fs_type
 	if [ $expect_size != $real_size ];then
-		return 0
+		return $FALSE
 	fi
 	if [ $expect_loca != $real_loca ];then
-		return 0
+		return $FALSE
 	fi
 	if [ $expect_fs_type != $real_fs_type ];then
-		return 0
+		return $FALSE
 	fi
 	
-	return 1
+	return $TRUE
 }
 
 #Test list
@@ -142,7 +142,7 @@ function test_partition_conf_parser_all_funcs()
 		${test_partition_conf_parser_func_iterator}
 		if [ $? -eq 0 ];then
 			print_body $LEVEL_INFO " ... failed\n"
-			return 0
+			return $FALSE
 		else
 			print_body $LEVEL_INFO " ... passed\n"
 		fi
@@ -150,6 +150,6 @@ function test_partition_conf_parser_all_funcs()
 		let test_partition_conf_parser_func_index=$test_partition_conf_parser_func_index+1
 	done 
 	
-	return 1
+	return $TRUE
 }
 

@@ -4,6 +4,8 @@
 
 sh sys_loop_subfolder_and_exec.sh $SYS_UTEST_DIR "test_all.sh"
 
+exit $?
+
 :<<AA
 source sys_debug.sh
 

@@ -33,7 +33,7 @@ function get_sh_last_name()
 	
 	eval $2=`echo "$sh_name" | awk -F '/' '{print $NF}'`
 
-	return 1
+	return $TRUE
 }
 
 #@in 1: level

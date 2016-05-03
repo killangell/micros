@@ -23,7 +23,7 @@ function test_get_partition_mount_point_by_name()
 	
 	get_partition_mount_point_by_name $name real
 	if [ $expect != $real ];then
-		return 0
+		return $FALSE
 	fi	
 	
 	name="efi"
@@ -32,7 +32,7 @@ function test_get_partition_mount_point_by_name()
 	
 	get_partition_mount_point_by_name $name real
 	if [ $expect != $real ];then
-		return 0
+		return $FALSE
 	fi
 	
 	name="data"
@@ -41,10 +41,10 @@ function test_get_partition_mount_point_by_name()
 	
 	get_partition_mount_point_by_name $name real
 	if [ $expect != $real ];then
-		return 0
+		return $FALSE
 	fi
 	
-	return 1
+	return $TRUE
 }
 
 #return: true(1)/false(0)
@@ -56,10 +56,10 @@ function test_get_dest_drive()
 	get_dest_drive real
 	
 	if [ $expect != $real ];then
-		return 0
+		return $FALSE
 	fi
 	
-	return 1
+	return $TRUE
 }
 
 #return: true(1)/false(0)
@@ -76,10 +76,10 @@ function test_set_dest_drive()
 	set_dest_drive $old_drive
 	
 	if [ $expect != $real ];then
-		return 0
+		return $FALSE
 	fi
 	
-	return 1
+	return $TRUE
 }
 
 #return: true(1)/false(0)
@@ -89,16 +89,16 @@ function test_get_pt_name_index()
 	
 	get_pt_name_index efi index
 	if [ $index -ne 0 ];then
-		return 0 
+		return $FALSE 
 	fi
 	
 	get_pt_name_index root index
 	if [ $index -ne 3 ];then
-		return 0 
+		return $FALSE 
 	fi
 	
 	
-	return 1 
+	return $TRUE 
 }
 
 #return: true(1)/false(0)
@@ -108,31 +108,31 @@ function test_is_valid_partition_index()
 	expect=1
 	is_valid_partition_index $index 
 	if [ $? -ne $expect ];then
-		return 0
+		return $FALSE
 	fi
 	
 	index=5
 	expect=1
 	is_valid_partition_index $index 
 	if [ $? -ne $expect ];then
-		return 0
+		return $FALSE
 	fi
 	
 	index=9
 	expect=1
 	is_valid_partition_index $index
 	if [ $? -ne $expect ];then
-		return 0
+		return $FALSE
 	fi
 	
 	index=15
 	expect=0
 	is_valid_partition_index $index
 	if [ $? -ne $expect ];then
-		return 0
+		return $FALSE
 	fi
 	
-	return 1
+	return $TRUE
 }
 
 #return: true(1)/false(0)
@@ -153,19 +153,19 @@ function test_get_partition_info_by_index_1()
 	get_partition_info_by_index $index real_name real_size real_loca real_fs_type
 	#echo $real_name,$real_size,$real_loca,$real_fs_type
 	if [ $expect_name != $real_name ];then
-		return 0
+		return $FALSE
 	fi
 	if [ $expect_size != $real_size ];then
-		return 0
+		return $FALSE
 	fi
 	if [ $expect_loca != $real_loca ];then
-		return 0
+		return $FALSE
 	fi
 	if [ $expect_fs_type != $real_fs_type ];then
-		return 0
+		return $FALSE
 	fi
 	
-	return 1
+	return $TRUE
 }
 
 #return: true(1)/false(0)
@@ -185,19 +185,19 @@ function test_get_partition_info_by_index_2()
 	
 	get_partition_info_by_index $index real_name real_size real_loca real_fs_type
 	if [ $expect_name != $real_name ];then
-		return 0
+		return $FALSE
 	fi
 	if [ $expect_size != $real_size ];then
-		return 0
+		return $FALSE
 	fi
 	if [ $expect_loca != $real_loca ];then
-		return 0
+		return $FALSE
 	fi
 	if [ $expect_fs_type != $real_fs_type ];then
-		return 0
+		return $FALSE
 	fi
 	
-	return 1
+	return $TRUE
 }
 
 #return: true(1)/false(0)
@@ -217,19 +217,19 @@ function test_get_partition_info_by_index_3()
 	
 	get_partition_info_by_index $index real_name real_size real_loca real_fs_type
 	if [ $expect_name != $real_name ];then
-		return 0
+		return $FALSE
 	fi
 	if [ $expect_size != $real_size ];then
-		return 0
+		return $FALSE
 	fi
 	if [ $expect_loca != $real_loca ];then
-		return 0
+		return $FALSE
 	fi
 	if [ $expect_fs_type != $real_fs_type ];then
-		return 0
+		return $FALSE
 	fi
 	
-	return 1
+	return $TRUE
 }
 
 #return: true(1)/false(0)
@@ -260,19 +260,19 @@ function test_set_partition_info_by_index_1()
 	set_partition_info_by_index $index $expect_name $old_size $old_loca $old_fs_type
 	
 	if [ $expect_name != $real_name ];then
-		return 0
+		return $FALSE
 	fi
 	if [ $expect_size != $real_size ];then
-		return 0
+		return $FALSE
 	fi
 	if [ $expect_loca != $real_loca ];then
-		return 0
+		return $FALSE
 	fi
 	if [ $expect_fs_type != $real_fs_type ];then
-		return 0
+		return $FALSE
 	fi
 	
-	return 1
+	return $TRUE
 }
 
 #return: true(1)/false(0)
@@ -290,16 +290,16 @@ function test_get_partition_info_by_name_1()
 	
 	get_partition_info_by_name $name real_size real_loca real_fs_type
 	if [ $expect_size != $real_size ];then
-		return 0
+		return $FALSE
 	fi
 	if [ $expect_loca != $real_loca ];then
-		return 0
+		return $FALSE
 	fi
 	if [ $expect_fs_type != $real_fs_type ];then
-		return 0
+		return $FALSE
 	fi
 	
-	return 1
+	return $TRUE
 }
 
 #return: true(1)/false(0)
@@ -317,16 +317,16 @@ function test_get_partition_info_by_name_2()
 	
 	get_partition_info_by_name $name real_size real_loca real_fs_type
 	if [ $expect_size != $real_size ];then
-		return 0
+		return $FALSE
 	fi
 	if [ $expect_loca != $real_loca ];then
-		return 0
+		return $FALSE
 	fi
 	if [ $expect_fs_type != $real_fs_type ];then
-		return 0
+		return $FALSE
 	fi
 	
-	return 1
+	return $TRUE
 }
 
 #return: true(1)/false(0)
@@ -345,16 +345,16 @@ function test_get_partition_info_by_name_3()
 	get_partition_info_by_name $name real_size real_loca real_fs_type
 	#echo $name,$real_size,$real_loca,$real_fs_type
 	if [ $expect_size != $real_size ];then
-		return 0
+		return $FALSE
 	fi
 	if [ $expect_loca != $real_loca ];then
-		return 0
+		return $FALSE
 	fi
 	if [ $expect_fs_type != $real_fs_type ];then
-		return 0
+		return $FALSE
 	fi
 	
-	return 1
+	return $TRUE
 }
 
 
@@ -373,16 +373,16 @@ function test_get_partition_info_by_name_4()
 	
 	get_partition_info_by_name $name real_size real_loca real_fs_type
 	if [ $expect_size != $real_size ];then
-		return 0
+		return $FALSE
 	fi
 	if [ $expect_loca != $real_loca ];then
-		return 0
+		return $FALSE
 	fi
 	if [ $expect_fs_type != $real_fs_type ];then
-		return 0
+		return $FALSE
 	fi
 	
-	return 1
+	return $TRUE
 }
 
 #return: true(1)/false(0)
@@ -410,16 +410,16 @@ function test_set_partition_info_by_name_1()
 	
 	#echo $name,$real_size,$real_loca,$real_fs_type
 	if [ $expect_size != $real_size ];then
-		return 0
+		return $FALSE
 	fi
 	if [ $expect_loca != $real_loca ];then
-		return 0
+		return $FALSE
 	fi
 	if [ $expect_fs_type != $real_fs_type ];then
-		return 0
+		return $FALSE
 	fi
 	
-	return 1
+	return $TRUE
 }
 
 #Test list
@@ -450,7 +450,7 @@ function test_partition_define_all_funcs()
 		${test_partition_define_func_iterator}
 		if [ $? -eq 0 ];then
 			print_body $LEVEL_INFO " ... failed\n"
-			return 0
+			return $FALSE
 		else
 			print_body $LEVEL_INFO " ... passed\n"
 		fi
@@ -458,6 +458,6 @@ function test_partition_define_all_funcs()
 		let test_partition_define_func_index=$test_partition_define_func_index+1
 	done 
 	
-	return 1
+	return $TRUE
 }
 

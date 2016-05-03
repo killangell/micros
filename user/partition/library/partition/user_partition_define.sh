@@ -105,21 +105,21 @@ function get_partition_mount_point_by_name()
 	
 	eval $2=$partition
 	
-	return 1
+	return $TRUE
 }
 
 #@out 1: dest drive
 function get_dest_drive()
 {
 	eval $1=$db_dest_drive	
-	return 1
+	return $TRUE
 }
 
 #@in  1: dest drive
 function set_dest_drive()
 {
 	db_dest_drive=$1
-	return 1
+	return $TRUE
 }
 
 #@in  1: partition name
@@ -139,7 +139,7 @@ function get_pt_name_index()
 	done 
 	
 	eval $2=$index
-	return 1
+	return $TRUE
 }
 
 #@in  1: index [0-9]
@@ -148,12 +148,12 @@ function is_valid_partition_index()
 	index=$1
 	
 	if [ $index -lt 0 ];then
-		return 0
+		return $FALSE
 	elif [ $index -gt 9 ];then
-		return 0
+		return $FALSE
 	fi
 	
-	return 1
+	return $TRUE
 }
 
 #@in  1: partition index
@@ -171,7 +171,7 @@ function get_partition_info_by_index()
 	
 	is_valid_partition_index $index
 	if [ $? != 1 ];then
-		return 0
+		return $FALSE
 	fi
 	
 	name=${pt_name_arr[$index]}
@@ -184,7 +184,7 @@ function get_partition_info_by_index()
 	eval $4=$loca
 	eval $5=$fs_type
 	
-	return 1
+	return $TRUE
 }
 
 #@in  1: partition index
@@ -202,7 +202,7 @@ function set_partition_info_by_index()
 	
 	is_valid_partition_index $index
 	if [ $? != 1 ];then
-		return 0
+		return $FALSE
 	fi
 	
 	#echo index=$index
@@ -213,7 +213,7 @@ function set_partition_info_by_index()
 	pt_locate_arr[$index]=$loca
 	pt_fs_arr[$index]=$fs_type
 	
-	return 1
+	return $TRUE
 }
 
 #@in  1: partition name
@@ -231,7 +231,7 @@ function get_partition_info_by_name()
 	get_pt_name_index $name index
 	is_valid_partition_index $index
 	if [ $? != 1 ];then
-		return 0
+		return $FALSE
 	fi
 	
 	get_partition_info_by_index $index name size loca fs_type
@@ -239,7 +239,7 @@ function get_partition_info_by_name()
 	eval $3=$loca
 	eval $4=$fs_type
 	
-	return 1
+	return $TRUE
 }
 
 #@in  1: partition name
@@ -257,10 +257,10 @@ function set_partition_info_by_name()
 	get_pt_name_index $name index
 	is_valid_partition_index $index
 	if [ $? != 1 ];then
-		return 0
+		return $FALSE
 	fi
 	
 	set_partition_info_by_index $index $name $size $loca $fs_type
 	
-	return 1
+	return $TRUE
 }

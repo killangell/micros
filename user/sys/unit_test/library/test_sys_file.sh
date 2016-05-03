@@ -40,45 +40,6 @@ function test_is_file_exist_2()
 }
 
 #@out 1: true(1)/false(0)
-function test_is_useless_line()
-{
-	line="#This is a useless line"
-	expect_result=1
-	
-	is_useless_line $line
-	if [ $? -ne $expect_result ];then
-		return $FALSE 
-	fi
-	
-	
-	line=""
-	expect_result=1
-	
-	is_useless_line $line
-	if [ $? -ne $expect_result ];then
-		return $FALSE 
-	fi
-	
-	line="\n"
-	expect_result=1
-	
-	is_useless_line $line
-	if [ $? -ne $expect_result ];then
-		return $FALSE 
-	fi
-	
-	line="This is a useful line"
-	expect_result=0
-	
-	is_useless_line $line
-	if [ $? -ne $expect_result ];then
-		return $FALSE 
-	fi
-	
-	return $TRUE
-}
-
-#@out 1: true(1)/false(0)
 function test_dbg_wr2file_ln()
 {
 	expect_file=$FILE_UNIT_TEST_DIR/$FUNCNAME.expect1
@@ -101,7 +62,6 @@ function test_dbg_wr2file_ln()
 test_file_func_arr=(
 	test_is_file_exist_1
 	test_is_file_exist_2
-	test_is_useless_line
 	test_dbg_wr2file_ln
 )
 

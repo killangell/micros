@@ -16,6 +16,11 @@ do
 		print_ln $LEVEL_INFO "Enter into sub folder $sub_dir and exec $script_name"
 		cd $sub_dir
 		sh $script_name
+		if [ $? -eq $FALSE ];then
+			exit $FALSE
+		fi
 		cd ..
 	fi
 done
+
+exit $TRUE

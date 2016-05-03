@@ -1,6 +1,6 @@
 #!/bin/sh
 
-source sys_file.sh
+source sys_string.sh
 
 #@in  1: partition conf
 #@out 2: dest drive
@@ -17,8 +17,7 @@ function get_conf_dest_drive()
 		fi
 		
 		if [[ $line = *=* ]];then
-			left_value=`echo $line | awk -F "=" '{print $1}'`
-			right_value=`echo $line | awk -F "=" '{print $2}'`
+			parse_format_string_by_splitter $line "=" num left_value right_value
 			if [[ $left_value = *dest_drive* ]];then
 				dest_drive=$right_value
 				break
@@ -27,7 +26,7 @@ function get_conf_dest_drive()
 	done < $conf_file
 	
 	eval $2=$dest_drive	
-	return 1
+	return $TRUE
 }
 
 #@in  1: partition conf
@@ -46,15 +45,12 @@ function get_conf_partition_info_by_name()
 	while read line
 	do	
 		is_useless_line $line
-		if [ $? -eq 1 ];then
+		if [ $? -eq $TRUE ];then
 			continue
 		fi
 		
-		if [[ $line = *:* ]];then
-			pt_name=`echo $line | awk -F ":" '{print $1}'`
-			pt_size=`echo $line | awk -F ":" '{print $2}'`
-			pt_loca=`echo $line | awk -F ":" '{print $3}'`
-			pt_fs_type=`echo $line | awk -F ":" '{print $4}'`
+		if [[ $line = *:* ]];then		
+			parse_format_string_by_splitter $line ":" num pt_name pt_size pt_loca pt_fs_type
 			#echo " ptxx",$pt_name,$name,$pt_size,$pt_loca,$pt_fs_type
 			if [[ $pt_name = *$name* ]];then
 				size=$pt_size
@@ -69,5 +65,5 @@ function get_conf_partition_info_by_name()
 	eval $4=$loca
 	eval $5=$fs_type
 	
-	return 1
+	return $TRUE
 }

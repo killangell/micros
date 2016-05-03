@@ -31,10 +31,10 @@ function test_get_ks_disk_partition_string_1()
 	#echo real=$real
 	
 	if [ "$expect" != "$real" ];then
-		return 0
+		return $FALSE
 	fi
 	
-	return 1
+	return $TRUE
 }
 
 #return: true(1)/false(0)
@@ -52,10 +52,10 @@ function test_get_ks_disk_partition_string_2()
 	real=$(echo $real | sed 's/+/ /g')
 	
 	if [ "$expect" != "$real" ];then
-		return 0
+		return $FALSE
 	fi
 	
-	return 1
+	return $TRUE
 }
 
 #return: true(1)/false(0)
@@ -73,10 +73,10 @@ function test_get_ks_disk_partition_string_3()
 	real=$(echo $real | sed 's/+/ /g')
 	
 	if [ "$expect" != "$real" ];then
-		return 0
+		return $FALSE
 	fi
 	
-	return 1
+	return $TRUE
 }
 
 #return: true(1)/false(0)
@@ -99,10 +99,10 @@ function test_get_ks_lvm_partition_string_1()
 	#echo real=$real
 	
 	if [ "$expect" != "$real" ];then
-		return 0
+		return $FALSE
 	fi
 	
-	return 1
+	return $TRUE
 }
 
 #return: true(1)/false(0)
@@ -125,10 +125,10 @@ function test_get_ks_lvm_partition_string_2()
 	#echo real=$real
 	
 	if [ "$expect" != "$real" ];then
-		return 0
+		return $FALSE
 	fi
 	
-	return 1
+	return $TRUE
 }
 
 #return: true(1)/false(0)
@@ -149,10 +149,10 @@ function test_get_ks_lvm_partition_string_3()
 	real=$(echo $real | sed 's/+/ /g')
 	
 	if [ "$expect" != "$real" ];then
-		return 0
+		return $FALSE
 	fi
 	
-	return 1
+	return $TRUE
 }
 
 #return: true(1)/false(0)
@@ -169,10 +169,10 @@ function test_get_ks_harddrive_string()
 	real=$(echo $real | sed 's/+/ /g')
 	
 	if [ "$expect" != "$real" ];then
-		return 0
+		return $FALSE
 	fi
 	
-	return 1
+	return $TRUE
 }
 
 #return: true(1)/false(0)
@@ -191,10 +191,10 @@ function test_get_ks_bootloader_string()
 	#echo real=$real
 	
 	if [ "$expect" != "$real" ];then
-		return 0
+		return $FALSE
 	fi
 	
-	return 1
+	return $TRUE
 }
 
 #Test list
@@ -219,7 +219,7 @@ function test_partition_ks_converter_all_funcs()
 		${test_partition_ks_converter_func_iterator}
 		if [ $? -eq 0 ];then
 			print_body $LEVEL_INFO " ... failed\n"
-			return 0
+			return $FALSE
 		else
 			print_body $LEVEL_INFO " ... passed\n"
 		fi
@@ -227,6 +227,6 @@ function test_partition_ks_converter_all_funcs()
 		let test_partition_ks_converter_func_index=$test_partition_ks_converter_func_index+1
 	done 
 	
-	return 1
+	return $TRUE
 }
 

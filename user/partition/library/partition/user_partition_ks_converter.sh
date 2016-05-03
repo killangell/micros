@@ -30,7 +30,7 @@ function get_ks_disk_partition_string()
 	#echo output_string="$output_string"
 	#Because eval limits, replace blank space to plus 
 	eval $4=$(echo $output_string | sed 's/ /+/g')
-	return 1
+	return $TRUE
 }
 
 #@in  1: Partition name 		(eg. boot)
@@ -63,7 +63,7 @@ function get_ks_lvm_partition_string()
 	#Because eval limits, replace blank space to plus 
 	#echo output_string=$output_string
 	eval $5=$(echo $output_string | sed 's/ /+/g')
-	return 1
+	return $TRUE
 }
 
 #@in  1: Partition name that iso located. (e.g.: it may be sda2/sda3..)
@@ -79,7 +79,7 @@ function get_ks_harddrive_string()
 	#Because eval limits, replace blank space to plus 
 	eval $2=$(echo $output_string | sed 's/ /+/g')
 	
-	return 1
+	return $TRUE
 }
 
 #@in  1: Dest drive to install os (e.g.: sda/hda)
@@ -97,6 +97,6 @@ function get_ks_bootloader_string()
 	#echo output_string2=$2
 	#set +x
 	
-	return 1
+	return $TRUE
 }
 

@@ -43,6 +43,9 @@ set_debug_level $LEVEL_INFO
 
 #Step 1: Unit test
 sh unit_test.sh
+if [ $? -eq $FALSE ];then
+	exit $FALSE
+fi
 
 #set_debug_level $LEVEL_INFO
 
