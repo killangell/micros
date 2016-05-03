@@ -27,21 +27,33 @@ export SYS_EXPECT_KS_SEGMENT_PARTITION_FILE="$SYS_OUTPUT_DIR/ks-segment-partitio
 export SYS_EXPECT_KS_SEGMENT_PRE_FILE="$SYS_OUTPUT_DIR/ks-segment-pre.out"
 export SYS_EXPECT_KS_SEGMENT_POST_FILE="$SYS_OUTPUT_DIR/ks-segment-post.out"
 
-#Show environment 
+#Set environment 
+mkdir -p $SYS_CONF_DIR
+mkdir -p $SYS_LIBRARY_DIR
+mkdir -p $SYS_LOG_DIR
+mkdir -p $SYS_MOUNT_DIR
+mkdir -p $SYS_OUTPUT_DIR
+mkdir -p $SYS_TEMP_DIR
+mkdir -p $SYS_TOOLS_DIR
+mkdir -p $SYS_UTEST_DIR
+mkdir -p $SYS_USER_DIR
 
 source sys_debug.sh
-set_debug_level $LEVEL_NONE
+set_debug_level $LEVEL_INFO
 
 #Step 1: Unit test
 sh unit_test.sh
 
-set_debug_level $LEVEL_INFO
+#set_debug_level $LEVEL_INFO
 
 export SYS_USER_PHASE1_DIR="$SYS_USER_DIR/phase1"
 export SYS_USER_PHASE2_DIR="$SYS_USER_DIR/phase2"
 export SYS_USER_PHASE3_DIR="$SYS_USER_DIR/phase3"
 export PATH=$PATH:$SYS_USER_PHASE1_DIR:$SYS_USER_PHASE2_DIR:$SYS_USER_PHASE3_DIR
 
+mkdir -p $SYS_USER_PHASE1_DIR
+mkdir -p $SYS_USER_PHASE2_DIR
+mkdir -p $SYS_USER_PHASE3_DIR
 
 sh phase1_start.sh
 

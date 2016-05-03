@@ -13,7 +13,8 @@ function get_last_item_by_split()
 	return 1
 }
 
-cd test-module-dir
+mkdir -p test-micros-dir
+cd test-micros-dir
 for file in ./*
 do
     if [ -f $file ];then

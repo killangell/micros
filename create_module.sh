@@ -14,7 +14,7 @@ function get_last_item_by_split()
 	return 1
 }
 
-
+mkdir -p test-micros-dir
 cd user
 for dir in ./*
 do
@@ -24,7 +24,7 @@ do
 		echo last_name=$last_name
 		cd $dir
 		output=$last_name.tar.gz
-		tar -zcvf ../../test-module-dir/$output ./
+		tar -zcvf ../../test-micros-dir/$output ./
 		echo "Output file $output"
 		cd ..
 	fi

@@ -1,4 +1,5 @@
 #!/bin/sh
 
-cd test-module-dir
+mkdir -p test-micros-dir
+cd test-micros-dir
 rm -rf ./*
