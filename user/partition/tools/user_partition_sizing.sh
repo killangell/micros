@@ -53,6 +53,7 @@ function do_partition_sizing()
 	get_dest_drive dest_drive
 	dbg_wr2file_ln $LEVEL_INFO "dest_drive=$dest_drive" $output_file	
 	PT_DEST_OS_DRIVE="$dest_drive"
+	PT_DEST_OS_DRIVE=`echo -e $dest_drive | tr -d '\r'`
 	
 	pt_name_index=1
 	for pt_name_iterator in ${pt_name_arr[*]}  

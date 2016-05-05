@@ -25,7 +25,7 @@ function do_partition_action_ks_partition()
 	
 	print_ln $LEVEL_INFO "Input: $input_file"
 	
-	string="clearpart --all --drives=$dest_drive"	
+	string="clearpart --all --drives=$dest_drive"
 	dbg_wr2file_ln $LEVEL_INFO "$string" $output_file
 	
 	string="ignoredisk --only-use=$dest_drive"

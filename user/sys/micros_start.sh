@@ -28,6 +28,7 @@ export SYS_EXPECT_KS_SEGMENT_HARDDRIVE_FILE="$SYS_OUTPUT_DIR/ks-segment-harddriv
 export SYS_EXPECT_KS_SEGMENT_PARTITION_FILE="$SYS_OUTPUT_DIR/ks-segment-partition.out"
 export SYS_EXPECT_KS_SEGMENT_PRE_FILE="$SYS_OUTPUT_DIR/ks-segment-pre.out"
 export SYS_EXPECT_KS_SEGMENT_POST_FILE="$SYS_OUTPUT_DIR/ks-segment-post.out"
+export SYS_ISO_DEV="isodev"
 
 #Clean previous log
 rm -rf $SYS_LOG_DIR

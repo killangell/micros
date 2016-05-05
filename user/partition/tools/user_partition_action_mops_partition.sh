@@ -16,7 +16,8 @@ function do_partition_action_mops_partition()
 	input_file=$1
 	output_file=$2
 	dest_drive=`echo -e $PT_DEST_OS_DRIVE | tr -d '\r'`
-
+	PT_MOPS_PARTITION_NUM=0
+	
 	print_ln $LEVEL_INFO "Input: $input_file"
 	#set -x	
 	print_ln $LEVEL_INFO "dest_drive=$dest_drive"
@@ -35,7 +36,8 @@ function do_partition_action_mops_partition()
 		
 		string="parted -a opt /dev/$dest_drive -s mkpart primary $spos $epos"
 		dbg_wr2file_ln $LEVEL_INFO "$string" $output_file
-	
+		let PT_MOPS_PARTITION_NUM=$PT_MOPS_PARTITION_NUM+1
+		
 		start_pos=$end_pos
 	done
 
@@ -47,11 +49,15 @@ function do_partition_action_mops_partition()
 	spos=$iso_partition_start"GB"
 	
 	string="parted -a opt /dev/$dest_drive -s mkpart primary $spos 100%"
-	dbg_wr2file_ln $LEVEL_INFO "$string" $output_file
+	dbg_wr2file_ln $LEVEL_INFO "$string" $output_file	
+	let PT_MOPS_PARTITION_NUM=$PT_MOPS_PARTITION_NUM+1
 	
-	let PT_MOPS_PARTITION_NUM=$ks_partition_num+1
+	isodev="$PT_DEST_OS_DRIVE$PT_MOPS_PARTITION_NUM"
+	string="ln -s /dev/$isodev /dev/$SYS_ISO_DEV"
+	dbg_wr2file_ln $LEVEL_INFO "$string" $output_file	
+	
 	print_ln $LEVEL_INFO "PT_MOPS_PARTITION_NUM=$PT_MOPS_PARTITION_NUM"
-	
+		
 	print_ln $LEVEL_INFO "Output: $output_file"
 	
 	return $TRUE
