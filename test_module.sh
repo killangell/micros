@@ -1,5 +1,8 @@
 #!/bin/sh
 
+export TRUE=1
+export FALSE=0
+
 #@in  1: Full string    (e.g.: /mnt/hgfs/VMShareFolder/linux-auto-installation/modules/partition)
 #@out 2: Split	 	    (e.g.: /)
 #@out 3: The last item. (e.g.: partition)

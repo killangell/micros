@@ -1,5 +1,8 @@
 #!/bin/sh
 
+export TRUE=1
+export FALSE=0
+
 echo clean_test
 sh ./clean_test.sh
 echo 

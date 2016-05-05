@@ -5,6 +5,7 @@
 
 source sys_debug.sh
 
+
 parent_dir=$1
 script_name=$2
 

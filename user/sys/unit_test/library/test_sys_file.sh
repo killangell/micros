@@ -43,10 +43,10 @@ function test_dbg_wr2file_ln()
 	string="bootloader --location=mbr --driveorder=$dest_drive --append=\"crashkernel=auto rhgb quiet\""
 	echo "$string" > $expect_file	
 	#string="bootloader --location=mbr --driveorder=$dest_drive --append=\\\"crashkernel=auto rhgb quiet\\\""
-	dbg_wr2file_ln "$string" "$real_file" $LEVEL_NONE
+	dbg_wr2file_ln $LEVEL_NONE "$string" "$real_file" 
 	
 	diff $expect_file $real_file > /dev/null
-	if [ $? -ne 0 ];then
+	if [ $? -ne $FALSE ];then
 		return $FALSE
 	fi
 	

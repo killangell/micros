@@ -7,6 +7,7 @@ export INVALID="null"
 export SYS_ROOT=`pwd`
 export SYS_CONF_DIR="$SYS_ROOT/conf"
 export SYS_LIBRARY_DIR="$SYS_ROOT/library"
+export SYS_LIBRARY_ASSERT_DIR="$SYS_LIBRARY_DIR/assert"
 export SYS_LOG_DIR="$SYS_ROOT/log"
 export SYS_MOUNT_DIR="$SYS_ROOT/mount"
 export SYS_OUTPUT_DIR="$SYS_ROOT/output"
@@ -14,9 +15,10 @@ export SYS_TEMP_DIR="$SYS_ROOT/temp"
 export SYS_TOOLS_DIR="$SYS_ROOT/tools"
 export SYS_UTEST_DIR="$SYS_ROOT/unit_test"
 export SYS_USER_DIR="$SYS_ROOT/user"
-export PATH=$PATH:$SYS_ROOT:$SYS_CONF_DIR:$SYS_LIBRARY_DIR:$SYS_LOG_DIR
+export PATH=$PATH:$SYS_ROOT:$SYS_CONF_DIR:$SYS_LIBRARY_DIR:$SYS_LIBRARY_ASSERT_DIR:$SYS_LOG_DIR
 export PATH=$PATH:$SYS_MOUNT_DIR:$SYS_OUTPUT_DIR:$SYS_TEMP_DIR:$SYS_TOOLS_DIR
 export PATH=$PATH:$SYS_UTEST_DIR:$SYS_USER_DIR
+
 
 #Partition module and kickstart module are share this info
 export SYS_EXPECT_MOPS_PARTITION_SH_FILE="$SYS_OUTPUT_DIR/mops_partition.sh"
@@ -26,6 +28,11 @@ export SYS_EXPECT_KS_SEGMENT_HARDDRIVE_FILE="$SYS_OUTPUT_DIR/ks-segment-harddriv
 export SYS_EXPECT_KS_SEGMENT_PARTITION_FILE="$SYS_OUTPUT_DIR/ks-segment-partition.out"
 export SYS_EXPECT_KS_SEGMENT_PRE_FILE="$SYS_OUTPUT_DIR/ks-segment-pre.out"
 export SYS_EXPECT_KS_SEGMENT_POST_FILE="$SYS_OUTPUT_DIR/ks-segment-post.out"
+
+#Clean previous log
+rm -rf $SYS_LOG_DIR
+rm -rf $SYS_MOUNT_DIR
+rm -rf $SYS_TEMP_DIR
 
 #Set environment 
 mkdir -p $SYS_CONF_DIR
@@ -43,9 +50,7 @@ set_debug_level $LEVEL_INFO
 
 #Step 1: Unit test
 sh unit_test.sh
-if [ $? -eq $FALSE ];then
-	exit $FALSE
-fi
+source assert_int $? $TRUE
 
 #set_debug_level $LEVEL_INFO
 

@@ -4,11 +4,6 @@ source sys_debug.sh
 source user_partition_define.sh
 
 
-#Global define, should be unique in system
-test_partition_define_func_index="null"
-test_partition_define_func_arr="null"
-test_partition_define_func_iterator="null"
-
 UNIT_TEST_DIR="$SYS_LOG_DIR/unit_test/partition"
 mkdir -p $UNIT_TEST_DIR
 
@@ -440,24 +435,7 @@ test_partition_define_func_arr=(
 	test_set_partition_info_by_name_1
 )
 
-function test_partition_define_all_funcs()
-{
-	test_partition_define_func_index=1
-	
-	for test_partition_define_func_iterator in ${test_partition_define_func_arr[*]}  
-	do  
-		print_head $LEVEL_INFO "func $test_partition_define_func_index: ${test_partition_define_func_iterator}"
-		${test_partition_define_func_iterator}
-		if [ $? -eq $FALSE ];then
-			print_body $LEVEL_INFO " ... failed\n"
-			return $FALSE
-		else
-			print_body $LEVEL_INFO " ... passed\n"
-		fi
-		
-		let test_partition_define_func_index=$test_partition_define_func_index+1
-	done 
-	
-	return $TRUE
-}
+source sys_loop_array_and_exec.sh ${test_partition_define_func_arr[*]}
+
+exit $TRUE
 

@@ -197,13 +197,8 @@ echo "  --- Physical volume ---
 	
 	parse_pv_size_from_cmd "$cmd" $device_name real_size real_unit
 	
-	if [ $expect_size -ne $real_size ];then
-		return $FALSE
-	fi
-	
-	if [ $expect_unit != $real_unit ];then
-		return $FALSE
-	fi
+	source assert_str "$expect_size" "$real_size"
+	source assert_str "$expect_unit" "$real_unit"
 	
 	return $TRUE
 }

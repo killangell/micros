@@ -4,11 +4,6 @@ source sys_debug.sh
 source ks_template_handler.sh
 
 
-#Global define, should be unique in system
-test_ks_template_handler_func_index="null"
-test_ks_template_handler_func_arr="null"
-test_ks_template_handler_func_iterator="null"
-
 KICKSTART_UNIT_TEST_DIR="$SYS_LOG_DIR/unit_test/kickstart"
 mkdir -p $KICKSTART_UNIT_TEST_DIR
 
@@ -247,24 +242,6 @@ test_ks_template_handler_func_arr=(
 	test_insert_after_bootloader
 )
 
-function test_ks_template_handler_all_funcs()
-{
-	test_ks_template_handler_func_index=1
-	
-	for test_ks_template_handler_func_iterator in ${test_ks_template_handler_func_arr[*]}  
-	do  
-		print_head $LEVEL_INFO "func $test_ks_template_handler_func_index: ${test_ks_template_handler_func_iterator}"
-		${test_ks_template_handler_func_iterator}
-		if [ $? -eq $FALSE ];then
-			print_body $LEVEL_INFO " ... failed\n"
-			return $FALSE
-		else
-			print_body $LEVEL_INFO " ... passed\n"
-		fi
-		
-		let test_ks_template_handler_func_index=$test_ks_template_handler_func_index+1
-	done 
-	
-	return $TRUE
-}
+source sys_loop_array_and_exec.sh ${test_ks_template_handler_func_arr[*]}
 
+exit $TRUE
