@@ -5,7 +5,7 @@ source sys_debug.sh
 #echo a=$#,b=$@,c=$*
 if [ $# -ne 2 ];then
 	print_ln $LEVEL_ERROR ""
-	print_ln $LEVEL_ERROR "Pamameter number error."
+	print_ln $LEVEL_ERROR "Assert Pamameter number error."
 	exit $FALSE
 fi
 
@@ -13,7 +13,7 @@ fi
 #@in  2: Expect
 if [ "$1" != "$2" ];then
 	print_ln $LEVEL_ERROR ""
-	print_ln $LEVEL_ERROR "Pamameter not match."
+	print_ln $LEVEL_ERROR "Assert Pamameter not match."
 	print_ln $LEVEL_ERROR "Param1=$1"
 	print_ln $LEVEL_ERROR "Param2=$2"
 	exit $FALSE

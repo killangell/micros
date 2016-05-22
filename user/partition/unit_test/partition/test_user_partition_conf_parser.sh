@@ -66,6 +66,7 @@ data:max:lvm:ext4" > $get_partition_info_by_name_1_input
 	
 	get_conf_partition_info_by_name $get_partition_info_by_name_1_input $name real_size real_loca real_fs_type
 	#echo " ",$name,$real_size,$real_loca,$real_fs_type
+	
 	if [ $expect_size != $real_size ];then
 		return $FALSE
 	fi

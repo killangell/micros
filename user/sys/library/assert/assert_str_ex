@@ -1,0 +1,26 @@
+#!/bin/sh
+
+source sys_debug.sh
+
+#echo a=$#,b=$@,c=$*
+if [ $# -ne 3 ];then
+	print_ln $LEVEL_ERROR ""
+	print_ln $LEVEL_ERROR "Assert Pamameter number error. Need 3"
+	print_ln $LEVEL_ERROR "Param1=$1"
+	print_ln $LEVEL_ERROR "Param2=$2"
+	print_ln $LEVEL_ERROR "Param3=$3"
+	print_ln $LEVEL_ERROR "Param4=$4"
+	print_ln $LEVEL_ERROR "Param5=$5"
+	exit $FALSE
+fi
+
+#@in  1: Result
+#@in  2: Expect
+if [ "$1" != "$2" ];then
+	print_ln $LEVEL_ERROR ""
+	print_ln $LEVEL_ERROR "$3"
+	print_ln $LEVEL_ERROR "Assert Pamameter not match."
+	print_ln $LEVEL_ERROR "Param1=$1"
+	print_ln $LEVEL_ERROR "Param2=$2"
+	exit $FALSE
+fi

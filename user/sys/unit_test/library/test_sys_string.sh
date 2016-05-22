@@ -16,10 +16,10 @@ function test_get_last_item_by_split_1()
 	
 	get_last_item_by_splitter $full_string $split real
 	if [ $real != $expect ];then
-		return $FALSE 
+		return $FALSE
 	fi
 	
-	return $TRUE 
+	return $TRUE
 }
 
 #@out 1: true(1)/false(0)
@@ -231,6 +231,32 @@ function test_is_useless_line()
 	return $TRUE
 }
 
+function test_split_string_to_n_c()
+{
+	string="123MiB"
+	expect_num="123"
+	expect_chars="MiB"
+	real_num="null"
+	real_chars="null"
+	
+	split_string_to_n_c $string real_num real_chars
+	source assert_int $real_num $expect_num
+	source assert_str $real_chars $expect_chars
+
+	###
+	string="123.456MB"
+	expect_num="123.456"
+	expect_chars="MB"
+	real_num="null"
+	real_chars="null"
+	
+	split_string_to_n_c $string real_num real_chars
+	source assert_str $real_num $expect_num
+	source assert_str $real_chars $expect_chars
+	
+	return $TRUE
+}
+
 #Test list
 test_string_func_arr=(
 	test_get_last_item_by_split_1
@@ -242,6 +268,7 @@ test_string_func_arr=(
 	test_parse_format_string_by_splitter_5
 	test_parse_format_string_by_splitter_6
 	test_is_useless_line
+	test_split_string_to_n_c
 )
 
 source sys_loop_array_and_exec.sh ${test_string_func_arr[*]}

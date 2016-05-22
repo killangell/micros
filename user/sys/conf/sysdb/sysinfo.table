@@ -1,0 +1,4 @@
+dest_drive=sdx
+os_vendor=rhel
+os_version=7.0
+ks_unsupported_hardware_ability=y

@@ -13,5 +13,7 @@ source assert_int $? $TRUE
 sh test_user_partition_ks_converter.sh
 source assert_int $? $TRUE
 
+sh test_user_partition_db_opt.sh
+source assert_int $? $TRUE
 
 exit $TRUE

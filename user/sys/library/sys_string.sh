@@ -70,3 +70,31 @@ function is_useless_line()
 	
 	return $FALSE
 }
+
+#
+function split_string_to_n_c()
+{
+	string=$1
+	strmid="null"
+	num="null"
+	chars="null"
+	char_index="null"
+	
+	point_index=`expr index $string .`
+	if [ $point_index -eq 0 ];then
+		num=`expr "$string" : '\([0-9]*\)'`
+	else
+		num=`expr "$string" : '\([0-9]*\.[0-9]*\)'`
+	fi
+	
+	num_len=`expr length $num`
+	let num_len=$num_len+1
+	string_len=`expr length $string`
+	chars=`expr substr $string $num_len $string_len`
+	
+	eval $2=$num
+	eval $3=$chars
+
+	return $TRUE
+}
+

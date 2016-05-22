@@ -12,8 +12,8 @@ function test_is_file_exist_1()
 	test_file=$FILE_UNIT_TEST_DIR/file.is_file_exist
 	
 	rm -rf $test_file
-	is_file_exist $test_file
-	if [ $? -ne 0 ];then
+	is_file_exist $test_file result
+	if [ $result -ne 0 ];then
 		return $FALSE 
 	fi
 	
@@ -26,8 +26,8 @@ function test_is_file_exist_2()
 	test_file=$FILE_UNIT_TEST_DIR/file.is_file_exist
 	
 	touch $test_file
-	is_file_exist $test_file
-	if [ $? -ne 1 ];then
+	is_file_exist $test_file result
+	if [ $result -ne 1 ];then
 		return $FALSE 
 	fi
 	

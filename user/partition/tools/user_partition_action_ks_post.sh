@@ -4,6 +4,8 @@ source sys_debug.sh
 source sys_file.sh
 source sys_string.sh
 source user_partition_ks_converter.sh
+source user_partition_ks_segments_parser.sh
+source user_partition_db_opt.sh
 
 
 #@out 1: Output ks-post partition code
@@ -21,7 +23,15 @@ function get_nolvm_partition_resizing_code()
 	
 	print_ln $LEVEL_INFO "partition_index=$delete_partition_index2,second_last_end_size=$second_last_end_size"	
 	
-	#Setp 2：	
+	#Setp 2：
+	isodev=$dest_drive$delete_partition_index1
+	
+	string="umount /dev/$isodev -l"
+	dbg_wr2file_ln $LEVEL_INFO "$string" $ouput_ks_post_file
+	
+	string="mkfs.ext4 /dev/$isodev"
+	dbg_wr2file_ln $LEVEL_INFO "$string" $ouput_ks_post_file
+
 	string="parted /dev/$dest_drive rm $delete_partition_index1"
 	dbg_wr2file_ln $LEVEL_INFO "$string" $ouput_ks_post_file
 	
@@ -52,6 +62,7 @@ function get_lvm_partition_resizing_code()
 	
 	delete_partition_index1=$PT_MOPS_PARTITION_NUM
 	let delete_partition_index2=$PT_MOPS_PARTITION_NUM-1
+	let partition_index3=$PT_MOPS_PARTITION_NUM-2
 	
 	pv_size="null"
 	pv_unit="null"
@@ -59,7 +70,10 @@ function get_lvm_partition_resizing_code()
 	new_pv_unit="null"
 	second_last_end_size="null"
 	
-	get_disk_partition_end_size "$dest_drive" "$delete_partition_index2" second_last_end_size
+	#get_disk_partition_end_size "$dest_drive" "$delete_partition_index2" second_last_end_size
+	#print_ln $LEVEL_INFO "partition_index=$delete_partition_index2,second_last_end_size=$second_last_end_size"	
+	
+	get_ks_segments_partition_size $SYS_EXPECT_KS_SEGMENT_PARTITION_FILE $partition_index3 second_last_end_size
 	print_ln $LEVEL_INFO "partition_index=$delete_partition_index2,second_last_end_size=$second_last_end_size"	
 	
 	get_pv_size "$dest_drive$delete_partition_index2" pv_size pv_unit
@@ -68,7 +82,15 @@ function get_lvm_partition_resizing_code()
 	get_disk_pv_capability "$dest_drive$delete_partition_index1" new_pv_size new_pv_unit
 	print_ln $LEVEL_INFO "pv:$dest_drive$delete_partition_index1,new_pv_size=$new_pv_size,new_pv_unit=$new_pv_unit"
 	
-	#Setp 2：	
+	#Setp 2：
+	isodev=$dest_drive$PT_MOPS_PARTITION_NUM
+	
+	string="umount /dev/$isodev -l"
+	dbg_wr2file_ln $LEVEL_INFO "$string" $ouput_ks_post_file
+	
+	string="mkfs.ext4 /dev/$isodev"
+	dbg_wr2file_ln $LEVEL_INFO "$string" $ouput_ks_post_file
+
 	string="parted /dev/$dest_drive rm $delete_partition_index1"
 	dbg_wr2file_ln $LEVEL_INFO "$string" $ouput_ks_post_file					
 	

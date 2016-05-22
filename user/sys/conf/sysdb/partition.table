@@ -1,0 +1,11 @@
+#name:size:location:filesystem:mountpoint:resv2
+efi:0:disk:vfat:/boot/efi:resv2
+boot:2000M:disk:ext4:/boot:resv2
+swap:?:lvm:ext4:swap:resv2
+root:100G:lvm:ext4:/:resv2
+var:100G:lvm:ext4:/var:resv2
+home:100G:lvm:ext4:/home:resv2
+tmp:100G:lvm:ext4:/tmp:resv2
+opt:100G:lvm:ext4:/opt:resv2
+usr:100G:lvm:ext4:/usr:resv2
+data:max:lvm:ext4:/data:resv2

@@ -1,0 +1,193 @@
+source sys_debug.sh
+source db_partition_table_opt.sh
+
+PARTITION_DB_UNIT_TEST_DIR="$SYS_LOG_DIR/unit_test/sysdb"
+mkdir -p $PARTITION_DB_UNIT_TEST_DIR
+
+function test_setup()
+{
+	PARTITION_DB_FILE="$PARTITION_DB_UNIT_TEST_DIR/test_partitioin_db_file"
+
+echo "efi:0:disk:vfat:resv1:resv2
+boot:111M:disk:ext4:resv1:resv2
+swap:?:lvm:ext4:resv1:resv2
+root:11G:lvm:ext4:resv1:resv2
+var:12G:lvm:ext4:resv1:resv2
+home:13G:lvm:ext4:resv1:resv2
+tmp:0:lvm:ext4:resv1:resv2
+opt:14G:lvm:ext4:resv1:resv2
+usr:15G:lvm:ext4:resv1:resv2
+data:max:lvm:ext4:resv1:resv2" > $PARTITION_DB_FILE
+
+	PARTITION_SIZE_TEST_SH="$PARTITION_DB_UNIT_TEST_DIR/test_partition_size"
+echo "name=\"\$1\"
+expect=\"\$2\"
+real=\"null\"
+get_partition_size \$name real	
+source assert_str \$expect \$real" > $PARTITION_SIZE_TEST_SH
+
+	PARTITION_TEST_SH="$PARTITION_DB_UNIT_TEST_DIR/test_partition"
+echo "name=\"\$1\"
+expect=\"\$2\"
+real=\"null\"
+\$3 \$name real	
+source \$4 \$expect \$real" > $PARTITION_TEST_SH
+	return $TRUE
+}
+
+function test_get_partition_size()
+{
+	source $PARTITION_SIZE_TEST_SH "efi" "0" 
+	source $PARTITION_SIZE_TEST_SH "boot" "111M" 
+	
+	source $PARTITION_TEST_SH "efi"	 "0"    get_partition_size assert_str
+	source $PARTITION_TEST_SH "boot" "111M" get_partition_size assert_str
+
+	name="efi"
+	expect="0"
+	real="null"
+	get_partition_size $name real	
+	source assert_str $expect $real
+	
+	name="boot"
+	expect="111M"
+	real="null"
+	get_partition_size $name real	
+	source assert_str $expect $real
+	
+	name="swap"
+	expect="?"
+	real="null"
+	get_partition_size $name real	
+	source assert_str $expect $real
+	
+	name="root"
+	expect="11G"
+	real="null"
+	get_partition_size $name real	
+	source assert_str $expect $real
+	
+	name="var"
+	expect="12G"
+	real="null"
+	get_partition_size $name real	
+	source assert_str $expect $real
+	
+	name="home"
+	expect="13G"
+	real="null"
+	get_partition_size $name real	
+	source assert_str $expect $real
+	
+	name="tmp"
+	expect="0"
+	real="null"
+	get_partition_size $name real	
+	source assert_str $expect $real
+	
+	name="opt"
+	expect="14G"
+	real="null"
+	get_partition_size $name real	
+	source assert_str $expect $real
+	
+	name="usr"
+	expect="15G"
+	real="null"
+	get_partition_size $name real	
+	source assert_str $expect $real
+	
+	name="data"
+	expect="max"
+	real="null"
+	get_partition_size $name real	
+	source assert_str $expect $real
+
+	return $TRUE
+}
+
+function test_set_partition_size()
+{	
+	name="efi"
+	expect="249M"
+	real="null"
+	set_partition_size $name $expect
+	get_partition_size $name real	
+	source assert_str $expect $real
+	
+	name="boot"
+	expect="1110M"
+	real="null"
+	set_partition_size $name $expect
+	get_partition_size $name real	
+	source assert_str $expect $real
+	
+	name="swap"
+	expect="??"
+	real="null"
+	set_partition_size $name $expect
+	get_partition_size $name real	
+	source assert_str $expect $real
+	
+	name="root"
+	expect="110G"
+	real="null"
+	set_partition_size $name $expect
+	get_partition_size $name real	
+	source assert_str $expect $real
+	
+	name="var"
+	expect="120G"
+	real="null"
+	set_partition_size $name $expect
+	get_partition_size $name real	
+	source assert_str $expect $real
+	
+	name="home"
+	expect="130G"
+	real="null"
+	set_partition_size $name $expect
+	get_partition_size $name real	
+	source assert_str $expect $real
+	
+	name="tmp"
+	expect="1M"
+	real="null"
+	set_partition_size $name $expect
+	get_partition_size $name real	
+	source assert_str $expect $real
+	
+	name="opt"
+	expect="0"
+	real="null"
+	set_partition_size $name $expect
+	get_partition_size $name real	
+	source assert_str $expect $real
+	
+	name="usr"
+	expect="max"
+	real="null"
+	set_partition_size $name $expect
+	get_partition_size $name real	
+	source assert_str $expect $real
+	
+	name="data"
+	expect="0"
+	real="null"
+	set_partition_size $name $expect
+	get_partition_size $name real	
+	source assert_str $expect $real	
+	
+	return $TRUE
+}
+
+#Test list
+test_partition_opt_func_arr=(
+	test_setup
+	test_get_partition_size
+	test_set_partition_size
+)
+
+source sys_loop_array_and_exec.sh ${test_partition_opt_func_arr[*]}
+
+exit $TRUE

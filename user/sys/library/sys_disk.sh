@@ -132,7 +132,7 @@ function get_pv_size()
 	
 	cmd="pvdisplay"
 	
-	parse_pv_size_from_cmd "$cmd" "$device_name" size	unit
+	parse_pv_size_from_cmd "$cmd" "$device_name" size unit
 	
 	eval $2=$size
 	eval $3=$unit
