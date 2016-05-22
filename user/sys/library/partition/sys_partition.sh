@@ -74,6 +74,36 @@ function get_partition_by_name()
 }
 
 #@in  1: Full path of partition.table
+#@out 2: Name
+#@out 3: Size
+#@out 4: Location
+#@out 5: File system
+#@out 6: Reserved1
+#@out 7: Reserved2
+function get_max_partition()
+{
+	local conf_file=$1
+	name="null"
+	size="null"
+	loca="null"
+	fs_type="null"
+	resv1="null"
+	resv2="null"
+	
+	line=`cat $conf_file | grep ":max:"`	
+	parse_format_string_by_splitter $line ":" num name size loca fs_type resv1 resv2
+	
+	eval $2=$name
+	eval $3=$size
+	eval $4=$loca
+	eval $5=$fs_type
+	eval $6=$resv1
+	eval $7=$resv2
+	
+	return $TRUE
+}
+
+#@in  1: Full path of partition.table
 #@in  2: Name
 #@in  3: Size
 #@in  4: Location
@@ -173,4 +203,6 @@ function get_partition_name_list()
 	
 	return $TRUE
 }
+
+
 

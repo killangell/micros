@@ -56,8 +56,8 @@ sh user_partition_action_ks_bootloader.sh $PT_KS_SEGMENT_BOOTLOADER_FILE
 
 sh user_partition_action_ks_harddrive.sh $PT_KS_SEGMENT_HARDDRIVE_FILE
 
-#sh user_partition_action_ks_pre.sh $PT_KS_SEGMENT_PRE_FILE
-::<<A
-source user_partition_action_ks_post.sh $PT_KS_SEGMENT_POST_FILE $PT_KICKOFF_SEGMENT_FILE
-A
+sh user_partition_action_ks_pre.sh $PT_KS_SEGMENT_PRE_FILE
+
+sh user_partition_action_ks_post.sh $PT_KS_SEGMENT_POST_FILE $PT_KICKOFF_SEGMENT_FILE
+
 exit $TRUE

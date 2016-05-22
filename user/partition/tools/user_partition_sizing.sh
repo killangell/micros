@@ -7,8 +7,7 @@ source user_partition_define.sh
 source user_partition_conf_parser.sh
 source user_partition_db_opt.sh
 
-#@in  1: User Partition file
-#@out 2: Output file
+#@out 1: Output file
 #return: true(1)/false(0)
 function do_partition_sizing()
 {

@@ -153,7 +153,7 @@ function get_disk_pv_capability()
 	
 	get_pv_size $device_name size unit
 	
-	pvremove /dev/$device_name --force --force
+	pvremove /dev/$device_name -ff
 	
 	eval $2=$size
 	eval $3=$unit

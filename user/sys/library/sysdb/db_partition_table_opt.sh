@@ -262,3 +262,30 @@ function db_get_partitioin_name_list()
 	
 	return $TRUE
 }
+
+#@out 1: Partition name
+#@Out 2: Partition size
+#@Out 3: Partition location
+#@Out 4: Partition filesystem
+#@Out 5: Partition mount point
+#@Out 6: Partition resv2
+function db_get_max_partition_full_info()
+{
+	local db_partition_file=$PARTITION_DB_FILE
+	name="null"
+	size="null"
+	loca="null"
+	fs_type="null"
+	mount_point="null"
+	resv2="null"
+
+	get_max_partition $db_partition_file name size loca fs_type mount_point resv2
+	eval $1=$name
+	eval $2=$size
+	eval $3=$loca
+	eval $4=$fs_type
+	eval $5=$mount_point
+	eval $6=$resv2
+
+	return $TRUE
+}

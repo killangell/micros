@@ -3,6 +3,8 @@
 export TRUE=1
 export FALSE=0
 
+mkdir -p test-micros-dir
+
 echo clean_test
 sh ./clean_test.sh
 echo 

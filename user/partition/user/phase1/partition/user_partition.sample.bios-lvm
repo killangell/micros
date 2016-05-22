@@ -5,7 +5,7 @@ swap:?:lvm:ext4
 root:1G:lvm:ext4
 var:1G:lvm:ext4
 home:1G:lvm:ext4
-tmp:0:lvm:ext4
+tmp:500M:lvm:ext4
 opt:1G:lvm:ext4
 usr:1G:lvm:ext4
 data:max:lvm:ext4

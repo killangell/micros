@@ -320,6 +320,50 @@ data"
 	return $TRUE
 }
 
+function test_db_get_max_partition_full_info_1()
+{
+	PARTITION_DB_FILE="$PARTITION_DB_UNIT_TEST_DIR/$FUNCNAME.input"
+echo "boot:111M:disk:ext4:/boot:resv2
+swap:?:lvm:ext4:swap:resv2
+root:11G:lvm:ext4:/:resv2
+var:12G:lvm:ext4:/var:resv2
+home:13G:lvm:ext4:/home:resv2
+tmp:0:lvm:ext4:/tmp:resv2
+opt:14G:lvm:ext4:/opt:resv2
+usr:15G:lvm:ext4:/usr:resv2
+data:max:lvm:ext4:/data:resv2" > $PARTITION_DB_FILE
+	expect="data"
+	real="null"
+	
+	db_get_max_partition_full_info real size loca fs_type mount_point resv2
+
+	source assert_str_ex "$expect" "$real" $FUNCNAME
+	
+	return $TRUE
+}
+
+function test_db_get_max_partition_full_info_2()
+{
+	PARTITION_DB_FILE="$PARTITION_DB_UNIT_TEST_DIR/$FUNCNAME.input"
+echo "boot:111M:disk:ext4:/boot:resv2
+swap:?:lvm:ext4:swap:resv2
+root:11G:lvm:ext4:/:resv2
+var:12G:lvm:ext4:/var:resv2
+home:13G:lvm:ext4:/home:resv2
+tmp:0:lvm:ext4:/tmp:resv2
+opt:max:lvm:ext4:/opt:resv2
+usr:15G:lvm:ext4:/usr:resv2
+data:20G:lvm:ext4:/data:resv2" > $PARTITION_DB_FILE
+	expect="opt"
+	real="null"
+	
+	db_get_max_partition_full_info real size loca fs_type mount_point resv2
+
+	source assert_str_ex "$expect" "$real" $FUNCNAME
+	
+	return $TRUE
+}
+
 #Test list
 test_partition_opt_func_arr=(
 	test_setup
@@ -331,6 +375,8 @@ test_partition_opt_func_arr=(
 	test_db_get_partition_count_by_flag
 	test_db_strip_partition_file
 	test_db_get_partitioin_name_list
+	test_db_get_max_partition_full_info_1
+	test_db_get_max_partition_full_info_2
 )
 
 source sys_loop_array_and_exec.sh ${test_partition_opt_func_arr[*]}
