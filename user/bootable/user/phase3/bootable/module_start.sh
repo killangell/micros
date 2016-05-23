@@ -5,22 +5,22 @@ source db_all_opt.sh
 
 print_ln $LEVEL_INFO "$0"
 
-::<<AA
-umount /dev/$SYS_BOOT_DEV
-umount /dev/$SYS_ISO_DEV
-umount /mnt/xos -l
 
-parted /dev/$SYS_DEST_OS_DRIVE rm 1
-parted /dev/$SYS_DEST_OS_DRIVE rm 2
-parted /dev/$SYS_DEST_OS_DRIVE rm 3
-mkfs.vfat -F 32 -I /dev/$SYS_DEST_OS_DRIVE
+# umount /dev/$SYS_BOOT_DEV
+# umount /dev/$SYS_ISO_DEV
+# umount /mnt/xos -l
 
-rm -rf /dev/$SYS_BOOT_DEV
-rm -rf /dev/$SYS_ISO_DEV
+# parted /dev/$SYS_DEST_OS_DRIVE rm 1
+# parted /dev/$SYS_DEST_OS_DRIVE rm 2
+# parted /dev/$SYS_DEST_OS_DRIVE rm 3
+# mkfs.vfat -F 32 -I /dev/$SYS_DEST_OS_DRIVE
 
-echo SYS_EXPECT_MOPS_PARTITION_SH_FILE=$SYS_EXPECT_MOPS_PARTITION_SH_FILE
-sh $SYS_EXPECT_MOPS_PARTITION_SH_FILE
-AA
+# rm -rf /dev/$SYS_BOOT_DEV
+# rm -rf /dev/$SYS_ISO_DEV
+
+# echo SYS_EXPECT_MOPS_PARTITION_SH_FILE=$SYS_EXPECT_MOPS_PARTITION_SH_FILE
+# sh $SYS_EXPECT_MOPS_PARTITION_SH_FILE
+
 
 #@out  1: ISO device index
 function user_partition_get_isodev_index()
@@ -60,6 +60,7 @@ function user_partition_get_isodev()
 	return $TRUE
 }
 
+
 db_get_sysinfo_dest_drive SYS_DEST_OS_DRIVE
 user_partition_get_isodev isodev
 
@@ -75,6 +76,8 @@ echo SYS_EXPECT_KICKOFF_SEGMENT_FILE=$SYS_EXPECT_KICKOFF_SEGMENT_FILE
 
 SYS_BOOT_DEV=$SYS_DEST_OS_DRIVE"1"
 SYS_ISO_DEV=$isodev
+
+sed -i "s/bootdev/$SYS_BOOT_DEV/g" $SYS_CONF_DIR/syslinux.cfg
 
 umount /dev/$SYS_BOOT_DEV -l
 umount /dev/$SYS_ISO_DEV -l

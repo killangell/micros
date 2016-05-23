@@ -18,6 +18,8 @@ lvremove /dev/vg0/lv_opt -ff
 lvremove /dev/vg0/lv_usr -ff
 lvremove /dev/vg0/lv_data -ff
 
+vgremove vg0 -ff
+
 pvremove /dev/sda* -ff
 
 mkdir -p test-micros-dir

@@ -34,6 +34,7 @@ function do_partition_action_mops_partition()
 	db_get_sysinfo_dest_drive dest_drive
 	print_ln $LEVEL_INFO "dest_drive:$dest_drive"
 	
+
 	get_disk_size $dest_drive disk_size disk_size_unit
 	print_ln $LEVEL_INFO "disk_size:$disk_size$disk_size_unit"
 	
