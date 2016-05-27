@@ -1,5 +1,7 @@
 #!/bin/sh
 
+umount -l /dev/sda*
+
 dmsetup remove vg0-lv_swap
 dmsetup remove vg0-lv_root
 dmsetup remove vg0-lv_var
@@ -21,6 +23,8 @@ lvremove /dev/vg0/lv_data -ff
 vgremove vg0 -ff
 
 pvremove /dev/sda* -ff
+
+mkfs.vfat -F 32 -I /dev/sda
 
 mkdir -p test-micros-dir
 cd test-micros-dir

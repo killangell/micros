@@ -55,6 +55,16 @@ function do_partition_sizing()
 	
 	db_strip_partition_file
 	
+	print_ln $LEVEL_INFO "Output in db"
+	db_get_partitioin_name_list name_list
+	pt_name_index=1
+	for pt_name in ${name_list[@]}
+	do
+		db_get_partition_full_info $pt_name pt_size pt_loca pt_fs_type pt_mount_point
+		print_ln $LEVEL_INFO "$pt_name_index: $pt_name:$pt_size,$pt_loca,$pt_fs_type,$pt_mount_point"
+		let pt_name_index=$pt_name_index+1
+	done
+	
 	return $TRUE
 }
 

@@ -184,7 +184,9 @@ function strip_partition_file()
 {
 	local conf_file=$1
 	
+	#Remove #line
 	sed -i '/^#/d' $conf_file
+	#Remove space line
 	sed -i '/^$/d' $conf_file
 	
 	return $TRUE

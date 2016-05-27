@@ -33,8 +33,10 @@ function get_disk_size()
 #return: 1:true/0:false
 function get_memory_size()
 {
-	eval $1=`dmidecode | grep -P -A5 "Memory\s+Device" | grep Size | grep -v Range | head -n 1 | awk '{print $2}'`
-	eval $2=`dmidecode | grep -P -A5 "Memory\s+Device" | grep Size | grep -v Range | head -n 1 | awk '{print $3}'`
+	#eval $1=`dmidecode | grep -P -A5 "Memory\s+Device" | grep Size | grep -v Range | head -n 1 | awk '{print $2}'`
+	#eval $2=`dmidecode | grep -P -A5 "Memory\s+Device" | grep Size | grep -v Range | head -n 1 | awk '{print $3}'`
+	eval $1=`free -m | grep Mem | awk '{print $2}'`
+	eval $2="M"
 	
 	return $TRUE 
 }
