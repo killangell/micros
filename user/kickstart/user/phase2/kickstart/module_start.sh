@@ -67,3 +67,5 @@ source assert_int_ex $? $TRUE "Set pre"
 
 sh ks_add_post.sh $PT_KS_SEGMENT_POST_FILE $SYS_KS_FILE
 source assert_int_ex $? $TRUE "Set post"
+
+exit $TRUE

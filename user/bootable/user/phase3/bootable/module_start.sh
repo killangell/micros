@@ -64,7 +64,9 @@ function user_partition_get_isodev()
 db_get_sysinfo_dest_drive SYS_DEST_OS_DRIVE
 user_partition_get_isodev isodev
 
-parted /dev/$SYS_DEST_OS_DRIVE toggle 1 boot
+#parted /dev/$SYS_DEST_OS_DRIVE toggle 1 boot
+sgdisk /dev/$SYS_DEST_OS_DRIVE --attributes=1:set:2
+sgdisk /dev/$SYS_DEST_OS_DRIVE --attributes=1:show
 sync
 
 echo SYS_DEST_OS_DRIVE=$SYS_DEST_OS_DRIVE
@@ -107,8 +109,8 @@ cp -a $SYS_ISO_FILE /mnt/$SYS_ISO_DEV/
 cp -a $SYS_EXPECT_KICKOFF_SEGMENT_FILE /mnt/$SYS_ISO_DEV/rc.local
 
 print_ln $LEVEL_INFO "Syslinux"
-dd bs=440 conv=notrunc count=1 if=/usr/share/syslinux/mbr.bin of=/dev/$SYS_DEST_OS_DRIVE
-#dd bs=440 conv=notrunc count=1 if=/usr/share/syslinux/gptmbr.bin of=/dev/$SYS_DEST_OS_DRIVE
+#dd bs=440 conv=notrunc count=1 if=/usr/share/syslinux/mbr.bin of=/dev/$SYS_DEST_OS_DRIVE
+dd bs=440 conv=notrunc count=1 if=/usr/share/syslinux/gptmbr.bin of=/dev/$SYS_DEST_OS_DRIVE
 partprobe
 cd /mnt/$SYS_BOOT_DEV
 syslinux -d syslinux/ /dev/$SYS_BOOT_DEV

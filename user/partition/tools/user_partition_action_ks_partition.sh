@@ -26,10 +26,13 @@ function do_partition_action_ks_partition()
 	local lvm_vg_name=$PT_VG_NAME
 	local name_list="null"
 	
-	print_ln $LEVEL_INFO "Output: $output_file"
+	print_ln $LEVEL_INFO "Output: $output_file"	
 	
-	#string="parted -a opt /dev/$dest_drive -s mklabel gpt"
-	#dbg_wr2file_ln $LEVEL_INFO "$string" $output_file
+	# string="mkfs.ext4 /dev/$dest_drive"
+	# dbg_wr2file_ln $LEVEL_INFO "$string" $output_file
+
+	# string="parted -a opt /dev/$dest_drive -s mklabel gpt"
+	# dbg_wr2file_ln $LEVEL_INFO "$string" $output_file
 	
 	db_get_sysinfo_dest_drive dest_drive
 	#string="clearpart --all --drives=$dest_drive"

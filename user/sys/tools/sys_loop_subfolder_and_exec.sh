@@ -18,6 +18,7 @@ do
 		cd $sub_dir
 		sh $script_name
 		if [ $? -eq $FALSE ];then
+			print_ln $LEVEL_INFO "Executed failed: $script_name"
 			exit $FALSE
 		fi
 		cd ..
