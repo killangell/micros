@@ -23,8 +23,7 @@ function get_nolvm_partition_resizing_code()
 	
 	print_ln $LEVEL_INFO "partition_index=$delete_partition_index2,third_last_end_size=$third_last_end_size"	
 	
-	#Setp 2：
-	isodev=$dest_drive$delete_partition_index1
+	#Setp 2�?	isodev=$dest_drive$delete_partition_index1
 	
 	string="umount /dev/$isodev -l"
 	dbg_wr2file_ln $LEVEL_INFO "$string" $ouput_ks_post_file
@@ -32,10 +31,10 @@ function get_nolvm_partition_resizing_code()
 	string="mkfs.ext4 /dev/$isodev"
 	dbg_wr2file_ln $LEVEL_INFO "$string" $ouput_ks_post_file
 
-	string="parted /dev/$dest_drive rm $delete_partition_index1"
+	string="parted /dev/$dest_drive -s rm $delete_partition_index1"
 	dbg_wr2file_ln $LEVEL_INFO "$string" $ouput_ks_post_file
 	
-	string="parted /dev/$dest_drive rm $delete_partition_index2"
+	string="parted /dev/$dest_drive -s rm $delete_partition_index2"
 	dbg_wr2file_ln $LEVEL_INFO "$string" $ouput_ks_post_file
 	
 	#Setp 3:
@@ -96,7 +95,7 @@ function get_lvm_partition_resizing_code()
 	get_disk_pv_capability "$dest_drive$delete_partition_index1" new_pv_size new_pv_unit
 	print_ln $LEVEL_INFO "pv:$dest_drive$delete_partition_index1,new_pv_size=$new_pv_size,new_pv_unit=$new_pv_unit"
 	
-	#Setp 2：
+	#Setp 2
 	isodev=$dest_drive$isodev_index
 	
 	string="umount /dev/$isodev -l"
@@ -105,17 +104,17 @@ function get_lvm_partition_resizing_code()
 	string="mkfs.ext4 /dev/$isodev"
 	dbg_wr2file_ln_ex $LEVEL_INFO "ks-post" "$string" $ouput_ks_post_file
 
-	string="parted /dev/$dest_drive rm $delete_partition_index1"
+	string="parted /dev/$dest_drive -s rm $delete_partition_index1"
 	dbg_wr2file_ln_ex $LEVEL_INFO "ks-post" "$string" $ouput_ks_post_file				
 	
-	string="parted /dev/$dest_drive rm $delete_partition_index2"
+	string="parted /dev/$dest_drive -s rm $delete_partition_index2"
 	dbg_wr2file_ln_ex $LEVEL_INFO "ks-post" "$string" $ouput_ks_post_file
 	
 	#Setp 3:
 	string="parted -a opt /dev/$dest_drive -s mkpart primary $third_last_end_size 100%"
 	dbg_wr2file_ln_ex $LEVEL_INFO "ks-post" "$string" $ouput_ks_post_file
 	
-	string="parted /dev/$dest_drive set $delete_partition_index2 LVM on"
+	string="parted /dev/$dest_drive -s set $delete_partition_index2 LVM on"
 	dbg_wr2file_ln_ex $LEVEL_INFO "ks-post" "$string" $ouput_ks_post_file
 	
 	#set -x
@@ -138,14 +137,19 @@ function get_lvm_partition_resizing_code()
 	#set +x
 	print_ln $LEVEL_INFO "total_physize:$total_physize"
 	
-	string="pvresize --setphysicalvolumesize $total_physize /dev/$resize_device"
+	#string="pvresize --setphysicalvolumesize $total_physize /dev/$resize_device"
+	string="pvresize /dev/$resize_device"
 	dbg_wr2file_ln_ex $LEVEL_INFO "ks-post" "$string" $ouput_ks_post_file
-	
+	string="pvresize /dev/$resize_device >> /root/resize.log"
+	dbg_wr2file_ln_ex $LEVEL_INFO "ks-firstboot" "$string" $ouput_kickoff_file
 	
 	lvm_full_resize_device="/dev/$PT_VG_NAME/lv_$max_pt_name"
 	
 	string="lvresize -rl +100%FREE $lvm_full_resize_device"
 	dbg_wr2file_ln_ex $LEVEL_INFO "ks-post" "$string" $ouput_ks_post_file
+	
+	string="lvresize -rl +100%FREE $lvm_full_resize_device >> /root/resize.log"
+	dbg_wr2file_ln_ex $LEVEL_INFO "ks-firstboot" "$string" $ouput_kickoff_file
 	
 	string="dmsetup resume $lvm_full_resize_device"
 	dbg_wr2file_ln_ex $LEVEL_INFO "ks-post" "$string" $ouput_ks_post_file

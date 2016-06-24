@@ -1,6 +1,6 @@
 dest_drive=sda
 efi:0:disk:vfat
-boot:200M:disk:ext4
+boot:500M:disk:ext4
 swap:?:lvm:ext4
 root:3G:lvm:ext4
 var:1G:lvm:ext4

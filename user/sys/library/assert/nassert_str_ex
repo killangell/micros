@@ -16,7 +16,7 @@ fi
 
 #@in  1: Result
 #@in  2: Expect
-if [ "$1" != "$2" ];then
+if [ "$1" = "$2" ];then
 	print_ln $LEVEL_ERROR ""
 	print_ln $LEVEL_ERROR "$3"
 	print_ln $LEVEL_ERROR "Assert Pamameter value not match."

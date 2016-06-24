@@ -13,7 +13,7 @@ fi
 #@in  2: Expect
 if [ $1 -ne $2 ];then
 	print_ln $LEVEL_ERROR ""
-	print_ln $LEVEL_ERROR "Assert Pamameter not match."
+	print_ln $LEVEL_ERROR "Assert Pamameter value not match."
 	print_ln $LEVEL_ERROR "Param1=$1"
 	print_ln $LEVEL_ERROR "Param2=$2"
 	exit $FALSE

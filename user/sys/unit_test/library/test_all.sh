@@ -14,4 +14,7 @@ source assert_int $? $TRUE
 sh test_sys_pair.sh
 source assert_int $? $TRUE
 
+sh test_sys_common.sh
+source assert_int $? $TRUE
+
 exit $TRUE

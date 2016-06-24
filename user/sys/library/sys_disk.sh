@@ -1,5 +1,7 @@
 #!/bin/sh
 
+source sys_common.sh
+
 #@in  1: drive size file (e.g.: )
 #@out 2: drive size		 (e.g.: )
 #@out 3: drive size unit (e.g.: GB/MB)
@@ -28,10 +30,54 @@ function get_disk_size()
 	return $TRUE 
 }
 
+function get_memory_size_by_free()
+{
+	eval $1=`free -m | grep Mem | awk '{print $2}'`
+	eval $2="M"
+	
+	return $TRUE 
+}
+
+function get_memory_size_by_dmidecode()
+{
+	eval $1=`dmidecode | grep -P -A5 "Memory\s+Device" | grep Size | grep -v Range | head -n 1 | awk '{print $2}'`
+	eval $2=`dmidecode | grep -P -A5 "Memory\s+Device" | grep Size | grep -v Range | head -n 1 | awk '{print $3}'`
+	
+	return $TRUE 
+}
+
 #@out 1: drive size		 (e.g.: )
 #@out 2: drive size unit (e.g.: GB/MB)
 #return: 1:true/0:false
 function get_memory_size()
+{
+	size="null"
+	unit="null"
+	result=$FALSE
+	
+	is_cmd_exist "free" result
+	if [ $result -eq $TRUE ];then
+		get_memory_size_by_free size unit
+		result=$TRUE
+	fi
+	
+	is_cmd_exist "dmidecode" result
+	if [ $result -eq $TRUE ];then
+		get_memory_size_by_dmidecode size unit
+		result=$TRUE
+	fi
+	
+	eval $1=$size
+	eval $2=$unit
+
+	return $result 
+}
+
+
+#@out 1: drive size		 (e.g.: )
+#@out 2: drive size unit (e.g.: GB/MB)
+#return: 1:true/0:false
+function get_memory_size2()
 {
 	#eval $1=`dmidecode | grep -P -A5 "Memory\s+Device" | grep Size | grep -v Range | head -n 1 | awk '{print $2}'`
 	#eval $2=`dmidecode | grep -P -A5 "Memory\s+Device" | grep Size | grep -v Range | head -n 1 | awk '{print $3}'`
