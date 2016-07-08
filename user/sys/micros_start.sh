@@ -29,7 +29,7 @@ export PARTITION_DB_FILE="$SYS_CONF_DIR/sysdb/partition.table"
 
 #Partition module and kickstart module are share this info
 export SYS_EXPECT_MOPS_PARTITION_SH_FILE="$SYS_OUTPUT_DIR/mops_partition.sh"
-export SYS_EXPECT_KICKOFF_SEGMENT_FILE="$SYS_OUTPUT_DIR/rc.local-segment.out"
+export SYS_EXPECT_KICKOFF_SEGMENT_FILE="$SYS_OUTPUT_DIR/firstboot.sh"
 export SYS_EXPECT_KS_SEGMENT_BOOTLOADER_FILE="$SYS_OUTPUT_DIR/ks-segment-bootloader.out"
 export SYS_EXPECT_KS_SEGMENT_HARDDRIVE_FILE="$SYS_OUTPUT_DIR/ks-segment-harddrive.out"
 export SYS_EXPECT_KS_SEGMENT_PARTITION_FILE="$SYS_OUTPUT_DIR/ks-segment-partition.out"
@@ -60,20 +60,27 @@ mkdir -p $SYS_USER_DIR
 source sys_debug.sh
 set_debug_level $LEVEL_INFO
 
-#Step 1: Unit test
-sh unit_test.sh
-source assert_int $? $TRUE
-
 #set_debug_level $LEVEL_INFO
 
+export SYS_USER_PHASE0_DIR="$SYS_USER_DIR/phase0"
 export SYS_USER_PHASE1_DIR="$SYS_USER_DIR/phase1"
 export SYS_USER_PHASE2_DIR="$SYS_USER_DIR/phase2"
 export SYS_USER_PHASE3_DIR="$SYS_USER_DIR/phase3"
-export PATH=$PATH:$SYS_USER_PHASE1_DIR:$SYS_USER_PHASE2_DIR:$SYS_USER_PHASE3_DIR
+export SYS_USER_PHASE4_DIR="$SYS_USER_DIR/phase4"
+export PATH=$PATH:$SYS_USER_PHASE0_DIR:$SYS_USER_PHASE1_DIR:$SYS_USER_PHASE2_DIR
+export PATH=$PATH:$SYS_USER_PHASE3_DIR:$SYS_USER_PHASE4_DIR
 
+mkdir -p $SYS_USER_PHASE0_DIR
 mkdir -p $SYS_USER_PHASE1_DIR
 mkdir -p $SYS_USER_PHASE2_DIR
 mkdir -p $SYS_USER_PHASE3_DIR
+mkdir -p $SYS_USER_PHASE4_DIR
+
+sh phase0_start.sh
+
+#Step 1: Unit test
+sh unit_test.sh
+source assert_int $? $TRUE
 
 sh phase1_start.sh
 
@@ -81,3 +88,4 @@ sh phase2_start.sh
 
 sh phase3_start.sh
 
+sh phase4_start.sh

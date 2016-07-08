@@ -1,5 +1,0 @@
-#Common
-vendor=redhat
-version=6.8
-#Kickstart
-is_support_unsupported_hardware=Y

@@ -34,9 +34,9 @@ file=$PT_KS_SEGMENT_PARTITION_FILE
 is_file_exist  $file result
 source assert_int_ex $TRUE $result $file
 
-file=$PT_KS_SEGMENT_PRE_FILE
-is_file_exist  $file result
-source assert_int_ex $TRUE $result $file
+# file=$PT_KS_SEGMENT_PRE_FILE
+# is_file_exist  $file result
+# source assert_int_ex $TRUE $result $file
 
 file=$PT_KS_SEGMENT_POST_FILE
 is_file_exist  $file result
@@ -62,8 +62,8 @@ source assert_int_ex $? $TRUE "Set harddrive"
 sh ks_set_partition.sh $PT_KS_SEGMENT_PARTITION_FILE $SYS_KS_FILE
 source assert_int_ex $? $TRUE "Set partition"
 
-sh ks_add_pre.sh $PT_KS_SEGMENT_PRE_FILE $SYS_KS_FILE
-source assert_int_ex $? $TRUE "Set pre"
+# sh ks_add_pre.sh $PT_KS_SEGMENT_PRE_FILE $SYS_KS_FILE
+# source assert_int_ex $? $TRUE "Set pre"
 
 sh ks_add_post.sh $PT_KS_SEGMENT_POST_FILE $SYS_KS_FILE
 source assert_int_ex $? $TRUE "Set post"

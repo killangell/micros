@@ -83,12 +83,12 @@ function test_get_pt_name_index()
 	index="-1"
 	
 	get_pt_name_index efi index
-	if [ $index -ne 0 ];then
+	if [ $index -ne 1 ];then
 		return $FALSE 
 	fi
 	
 	get_pt_name_index root index
-	if [ $index -ne 3 ];then
+	if [ $index -ne 4 ];then
 		return $FALSE 
 	fi
 	
@@ -133,7 +133,7 @@ function test_is_valid_partition_index()
 #return: true(1)/false(0)
 function test_get_partition_info_by_index_1()
 {
-	index=0
+	index=1
 	
 	expect_name="efi"
 	expect_size="200M"
@@ -166,7 +166,7 @@ function test_get_partition_info_by_index_1()
 #return: true(1)/false(0)
 function test_get_partition_info_by_index_2()
 {
-	index=3
+	index=4
 	
 	expect_name="root"
 	expect_size="10G"
@@ -198,7 +198,7 @@ function test_get_partition_info_by_index_2()
 #return: true(1)/false(0)
 function test_get_partition_info_by_index_3()
 {
-	index=9
+	index=10
 	
 	expect_name="data"
 	expect_size="0"
@@ -230,7 +230,7 @@ function test_get_partition_info_by_index_3()
 #return: true(1)/false(0)
 function test_set_partition_info_by_index_1()
 {
-	index=9
+	index=10
 	
 	expect_name="data"
 	expect_size="1G"

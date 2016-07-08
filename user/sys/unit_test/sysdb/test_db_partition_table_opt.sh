@@ -10,7 +10,8 @@ function test_setup()
 {
 	PARTITION_DB_FILE="$PARTITION_DB_UNIT_TEST_DIR/test_partitioin_db_file"
 
-echo "efi:0:disk:vfat:/boot/efi:resv2
+echo "bios_grub:2M:disk:N/A:N/A:resv2
+efi:0:disk:vfat:/boot/efi:resv2
 boot:111M:disk:ext4:/boot:resv2
 swap:?:lvm:ext4:swap:resv2
 root:11G:lvm:ext4:/:resv2
@@ -52,16 +53,18 @@ function test_db_get_partition_info()
 	# db_get_partition_size $name real	
 	# source assert_str $expect $real
 	
-	source $PARTITION_TEST_GET_SH "efi"	 "1"  db_get_partition_index assert_int_ex
-	source $PARTITION_TEST_GET_SH "boot" "2"  db_get_partition_index assert_int_ex
-	source $PARTITION_TEST_GET_SH "swap" "3"  db_get_partition_index assert_int_ex
-	source $PARTITION_TEST_GET_SH "root" "4"  db_get_partition_index assert_int_ex
-	source $PARTITION_TEST_GET_SH "var"  "5"  db_get_partition_index assert_int_ex
-	source $PARTITION_TEST_GET_SH "home" "6"  db_get_partition_index assert_int_ex
-	source $PARTITION_TEST_GET_SH "tmp"  "7"  db_get_partition_index assert_int_ex
-	source $PARTITION_TEST_GET_SH "opt" "8"  db_get_partition_index assert_int_ex
-	source $PARTITION_TEST_GET_SH "usr"  "9"  db_get_partition_index assert_int_ex
-	source $PARTITION_TEST_GET_SH "data" "10" db_get_partition_index assert_int_ex
+	source $PARTITION_TEST_GET_SH "null" 		"0"  db_get_partition_index assert_int_ex
+	source $PARTITION_TEST_GET_SH "bios_grub" 	"1"  db_get_partition_index assert_int_ex
+	source $PARTITION_TEST_GET_SH "efi"	 		"2"  db_get_partition_index assert_int_ex
+	source $PARTITION_TEST_GET_SH "boot" 		"3"  db_get_partition_index assert_int_ex
+	source $PARTITION_TEST_GET_SH "swap" 		"4"  db_get_partition_index assert_int_ex
+	source $PARTITION_TEST_GET_SH "root" 		"5"  db_get_partition_index assert_int_ex
+	source $PARTITION_TEST_GET_SH "var"  		"6"  db_get_partition_index assert_int_ex
+	source $PARTITION_TEST_GET_SH "home" 		"7"  db_get_partition_index assert_int_ex
+	source $PARTITION_TEST_GET_SH "tmp"  		"8"  db_get_partition_index assert_int_ex
+	source $PARTITION_TEST_GET_SH "opt" 		"9"  db_get_partition_index assert_int_ex
+	source $PARTITION_TEST_GET_SH "usr"  		"10" db_get_partition_index assert_int_ex
+	source $PARTITION_TEST_GET_SH "data" 		"11" db_get_partition_index assert_int_ex
 	
 	source $PARTITION_TEST_GET_SH "efi"	 "0"    db_get_partition_size assert_str_ex
 	source $PARTITION_TEST_GET_SH "boot" "111M" db_get_partition_size assert_str_ex
@@ -231,7 +234,7 @@ function test_db_get_partition_count_by_flag()
 	test_setup
 	
 	local flag="disk"
-	local expect=2
+	local expect=3
 	local real=0
 	
 	db_get_partition_count_by_flag $flag real	

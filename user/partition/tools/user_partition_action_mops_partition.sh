@@ -43,9 +43,6 @@ function do_partition_action_mops_partition()
 	pt_iso_size_start=$pt_iso_size_start"G"
 	print_ln $LEVEL_INFO "pt_iso_size_start:$pt_iso_size_start"
 	
-	#string="mkfs.vfat -F 32 -I /dev/$dest_drive"
-	#dbg_wr2file_ln_ex $LEVEL_INFO "mops-part" "$string" $output_file
-	
 	string="echo y | mkfs.ext4 -F /dev/$dest_drive"
 	dbg_wr2file_ln_ex $LEVEL_INFO  "mops-part" "$string" $output_file
 
@@ -79,6 +76,11 @@ function do_partition_action_mops_partition()
 	fi
 	
 	string="parted -a opt /dev/$dest_drive -s mkpart primary $pt_iso_size_start 100%"
+	dbg_wr2file_ln_ex $LEVEL_INFO "mops-part" "$string" $output_file
+	
+	local isodev="null"
+	user_partition_get_isodev isodev
+	string="mkfs.ext4 /dev/$isodev"
 	dbg_wr2file_ln_ex $LEVEL_INFO "mops-part" "$string" $output_file
 	
 	return $TRUE

@@ -2,6 +2,7 @@
 
 db_dest_drive=sda #Default value. OS will be intstalled on it.
 pt_name_arr=( 
+	bios_grub		#0 N/A
     efi				#0 /boot/efi
     boot			#1 /boot
 	swap 			#2 /swap 

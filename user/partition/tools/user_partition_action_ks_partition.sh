@@ -57,23 +57,29 @@ function do_partition_action_ks_partition()
 		# fi
 		
 		pt_device="$dest_drive""$pt_name_index"
-		if [ $pt_loca = "disk" ];then
-			string="part $pt_mount_point --fstype=$pt_fs_type --onpart=/dev/$pt_device"
-		elif [ $pt_loca = "lvm" ];then
-			if [ $lvm_created_partition_flag = "false" ];then			
-				string="part pv.008019 --onpart=/dev/$pt_device"
-				dbg_wr2file_ln_ex $LEVEL_INFO "ks-part" "$string" $output_file
+		if [ $pt_fs_type != "N/A" ];then		
+			if [ $pt_loca = "disk" ];then
+				#if  [[ $pt_name = *boot* ]];then
+				#	string="part $pt_mount_point --fstype=$pt_fs_type --onpart=/dev/$pt_device --noformat"
+				#else
+					string="part $pt_mount_point --fstype=$pt_fs_type --onpart=/dev/$pt_device"
+				#fi
+			elif [ $pt_loca = "lvm" ];then
+				if [ $lvm_created_partition_flag = "false" ];then			
+					string="part pv.008019 --onpart=/dev/$pt_device"
+					dbg_wr2file_ln_ex $LEVEL_INFO "ks-part" "$string" $output_file
 
-				string="volgroup $lvm_vg_name --pesize=4096 pv.008019"
-				dbg_wr2file_ln_ex $LEVEL_INFO "ks-part" "$string" $output_file
-				
-				lvm_created_partition_flag="true" #Only create one time
+					string="volgroup $lvm_vg_name --pesize=4096 pv.008019"
+					dbg_wr2file_ln_ex $LEVEL_INFO "ks-part" "$string" $output_file
+					
+					lvm_created_partition_flag="true" #Only create one time
+				fi
+				get_ks_lvm_partition_string $pt_name $pt_size $pt_fs_type $lvm_vg_name string
 			fi
-			get_ks_lvm_partition_string $pt_name $pt_size $pt_fs_type $lvm_vg_name string
+			
+			string=$(echo $string | sed 's/+/ /g')
+			dbg_wr2file_ln_ex $LEVEL_INFO "ks-part" "$string" $output_file
 		fi
-		
-		string=$(echo $string | sed 's/+/ /g')
-		dbg_wr2file_ln_ex $LEVEL_INFO "ks-part" "$string" $output_file
 		
 		pt_size_start=$pt_size_end
 		let pt_name_index=$pt_name_index+1

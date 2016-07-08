@@ -1,4 +1,5 @@
 #name:size:location:filesystem:mountpoint:resv2
+bios_grub:2M:disk:N/A:N/A:resv2
 efi:0:disk:vfat:/boot/efi:resv2
 boot:2000M:disk:ext4:/boot:resv2
 swap:?:lvm:ext4:swap:resv2

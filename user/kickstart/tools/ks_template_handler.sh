@@ -57,3 +57,21 @@ function ks_insert_file_after_key()
 	
 	return $TRUE
 }
+
+#@in 1: Key
+#@in 2: Source file
+#@in 3: ks.cfg
+function ks_insert_file_before_key()
+{
+	key=$1
+	file=$2
+	ks=$3
+	
+	ks_find_line_row_number $key $ks row_num
+	
+	let row_num=$row_num-1
+	
+	sed -i "$row_num r $file" $ks #Insert
+	
+	return $TRUE
+}

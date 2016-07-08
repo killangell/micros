@@ -10,7 +10,11 @@ function get_partition_index_by_name()
 	local conf_file=$1
 	local name=$2
 
-	line_num=`sed -n "/^$name/=" $conf_file`		
+	line_num=`sed -n "/^$name/=" $conf_file`
+	if [ ! -n "$line_num" ]; then
+		line_num=0
+	fi
+	
 	eval $3=$line_num
 	
 	return $TRUE
