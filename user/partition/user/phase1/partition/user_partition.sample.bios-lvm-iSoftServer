@@ -1,0 +1,12 @@
+dest_drive=sda
+bios_grub:0:disk:N/A
+efi:0:disk:vfat
+boot:500M:disk:ext4
+swap:?:lvm:ext4
+root:5G:lvm:ext4
+var:0:lvm:ext4
+home:0:lvm:ext4
+tmp:0:lvm:ext4
+opt:0:lvm:ext4
+usr:0:lvm:ext4
+data:max:lvm:ext4
