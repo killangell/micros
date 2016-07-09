@@ -78,8 +78,10 @@ mount /dev/$SYS_ISO_DEV /$MOUNT_DIR/isodev
 mkdir /$MOUNT_DIR/isodev/firstboot
 cp $PT_KICKOFF_SEGMENT_FILE /$MOUNT_DIR/isodev/firstboot/firstboot.sh
 
+echo "echo rc.local-start >> /root/firstboot.log" >> /$MOUNT_DIR/isodev/firstboot/rc.local
 echo "sh /root/firstboot/firstboot.sh >> /root/firstboot.log 2>&1 &" >> /$MOUNT_DIR/isodev/firstboot/rc.local
-echo "mv /root/firstboot/rc.local.back /etc/rc.d/rc.local >> /root/firstboot.log"  >> /$MOUNT_DIR/isodev/firstboot/rc.local
+echo "cp /root/firstboot/rc.local.back /etc/rc.d/rc.local >> /root/firstboot.log"  >> /$MOUNT_DIR/isodev/firstboot/rc.local
+echo "echo rc.local-stop >> /root/firstboot.log" >> /$MOUNT_DIR/isodev/firstboot/rc.local
 
 
 #PRE
@@ -93,8 +95,9 @@ source assert_int_ex $? $TRUE "Bootable set pre"
 
 #POST
 echo "cp -a /$MOUNT_DIR/firstboot /mnt/sysimage/root/" >> firstboot-ks-segment.post
+echo "chmod a+x /mnt/sysimage/root/firstboot/*" >> firstboot-ks-segment.post
 echo "mv /mnt/sysimage/etc/rc.d/rc.local /mnt/sysimage/root/firstboot/rc.local.back" >> firstboot-ks-segment.post
-echo "cp /mnt/sysimage/root/firstboot/rc.local /mnt/sysimage/etc/rc.d/" >> firstboot-ks-segment.post
+echo "cp -rf /mnt/sysimage/root/firstboot/rc.local /mnt/sysimage/etc/rc.d/" >> firstboot-ks-segment.post
 echo "chmod 777 /mnt/sysimage/etc/rc.d/rc.local" >> firstboot-ks-segment.post
 
 sh ks_add_post.sh firstboot-ks-segment.post $SYS_KS_FILE

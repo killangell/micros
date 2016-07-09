@@ -117,9 +117,15 @@ function get_lvm_partition_resizing_code()
 	string="pvresize /dev/$resize_device"
 	dbg_wr2file_ln_ex $LEVEL_INFO "ks-firstboot" "$string" $ouput_kickoff_file
 	
-	lvm_full_resize_device="/dev/$PT_VG_NAME/lv_$max_pt_name"
-		
+	lvm_full_resize_device="/dev/$PT_VG_NAME/lv_$max_pt_name"	
+	
+	string="umount -l $lvm_full_resize_device"
+	dbg_wr2file_ln_ex $LEVEL_INFO "ks-firstboot" "$string" $ouput_kickoff_file	
+	
 	string="lvresize -rl +100%FREE $lvm_full_resize_device"
+	dbg_wr2file_ln_ex $LEVEL_INFO "ks-firstboot" "$string" $ouput_kickoff_file
+	
+	string="mount $lvm_full_resize_device $max_pt_mount_point"
 	dbg_wr2file_ln_ex $LEVEL_INFO "ks-firstboot" "$string" $ouput_kickoff_file
 	
 	string="df -lh"
