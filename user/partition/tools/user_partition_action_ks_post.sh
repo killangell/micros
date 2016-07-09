@@ -107,6 +107,9 @@ function get_lvm_partition_resizing_code()
 	dbg_wr2file_ln_ex $LEVEL_INFO "ks-post" "$string" $ouput_ks_post_file
 	
 	
+	string="echo $0 start"
+	dbg_wr2file_ln_ex $LEVEL_INFO "ks-firstboot" "$string" $ouput_kickoff_file
+	
 	string="df -lh"
 	dbg_wr2file_ln_ex $LEVEL_INFO "ks-firstboot" "$string" $ouput_kickoff_file
 	
@@ -120,6 +123,9 @@ function get_lvm_partition_resizing_code()
 	dbg_wr2file_ln_ex $LEVEL_INFO "ks-firstboot" "$string" $ouput_kickoff_file
 	
 	string="df -lh"
+	dbg_wr2file_ln_ex $LEVEL_INFO "ks-firstboot" "$string" $ouput_kickoff_file
+	
+	string="echo $0 stop"
 	dbg_wr2file_ln_ex $LEVEL_INFO "ks-firstboot" "$string" $ouput_kickoff_file
 	
 	return $TRUE

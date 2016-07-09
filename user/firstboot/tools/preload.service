@@ -1,8 +1,0 @@
-[Unit]
-Description=Preload execute command
-
-[Service]
-ExecStart=/bin/sh /root/firstboot.sh
-
-[Install]
-WantedBy=multi-user.target
