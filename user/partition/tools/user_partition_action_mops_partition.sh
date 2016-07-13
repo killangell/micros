@@ -48,6 +48,7 @@ function do_partition_action_mops_partition()
 
 	string="parted -a opt /dev/$dest_drive -s mklabel gpt"
 	dbg_wr2file_ln_ex $LEVEL_INFO "mops-part" "$string" $output_file
+	dbg_wr2file_ln_ex $LEVEL_INFO "mops-part" "sleep 3" $output_file
 	
 	db_get_partitioin_name_list name_list
 	#echo name_list=$name_list 
@@ -62,6 +63,7 @@ function do_partition_action_mops_partition()
 		if [ $pt_loca = "disk" ];then
 			string="parted -a opt /dev/$dest_drive -s mkpart primary $pt_size_start $pt_size_end"
 			dbg_wr2file_ln_ex $LEVEL_INFO "mops-part" "$string" $output_file
+			dbg_wr2file_ln_ex $LEVEL_INFO "mops-part" "sleep 3" $output_file
 		elif [ $pt_loca = "lvm" ];then
 			is_have_lvm=$TRUE
 			break
@@ -73,10 +75,12 @@ function do_partition_action_mops_partition()
 	if [ $is_have_lvm = $TRUE ];then
 		string="parted -a opt /dev/$dest_drive -s mkpart primary $pt_size_start $pt_iso_size_start"
 		dbg_wr2file_ln_ex $LEVEL_INFO "mops-part" "$string" $output_file
+		dbg_wr2file_ln_ex $LEVEL_INFO "mops-part" "sleep 3" $output_file
 	fi
 	
 	string="parted -a opt /dev/$dest_drive -s mkpart primary $pt_iso_size_start 100%"
 	dbg_wr2file_ln_ex $LEVEL_INFO "mops-part" "$string" $output_file
+	dbg_wr2file_ln_ex $LEVEL_INFO "mops-part" "sleep 3" $output_file
 	
 	local isodev="null"
 	user_partition_get_isodev isodev

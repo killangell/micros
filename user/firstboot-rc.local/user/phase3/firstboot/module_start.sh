@@ -73,9 +73,9 @@ print_ln $LEVEL_INFO "SYS_ISO_DEV=$SYS_ISO_DEV"
 
 umount -l /dev/$SYS_ISO_DEV
 umount -l /$MOUNT_DIR/isodev
-mkdir /$MOUNT_DIR/isodev
+mkdir -p /$MOUNT_DIR/isodev
 mount /dev/$SYS_ISO_DEV /$MOUNT_DIR/isodev
-mkdir /$MOUNT_DIR/isodev/firstboot
+mkdir -p /$MOUNT_DIR/isodev/firstboot
 cp $PT_KICKOFF_SEGMENT_FILE /$MOUNT_DIR/isodev/firstboot/firstboot.sh
 
 echo "echo rc.local-start >> /root/firstboot.log" >> /$MOUNT_DIR/isodev/firstboot/rc.local
@@ -85,7 +85,7 @@ echo "echo rc.local-stop >> /root/firstboot.log" >> /$MOUNT_DIR/isodev/firstboot
 
 
 #PRE
-echo "mkdir /$MOUNT_DIR/isodev" >> firstboot-ks-segment.pre
+echo "mkdir -p /$MOUNT_DIR/isodev" >> firstboot-ks-segment.pre
 echo "mount /dev/$SYS_ISO_DEV /$MOUNT_DIR/isodev" >> firstboot-ks-segment.pre
 echo "cp -a /$MOUNT_DIR/isodev/firstboot /$MOUNT_DIR" >> firstboot-ks-segment.pre
 echo "umount /dev/$SYS_ISO_DEV -l" >> firstboot-ks-segment.pre

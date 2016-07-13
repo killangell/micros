@@ -112,6 +112,9 @@ function get_lvm_partition_resizing_code()
 	
 	string="df -lh"
 	dbg_wr2file_ln_ex $LEVEL_INFO "ks-firstboot" "$string" $ouput_kickoff_file
+		
+	string="echo pvresize"
+	dbg_wr2file_ln_ex $LEVEL_INFO "ks-firstboot" "$string" $ouput_kickoff_file
 	
 	resize_device=$dest_drive$delete_partition_index2
 	string="pvresize /dev/$resize_device"
@@ -119,10 +122,25 @@ function get_lvm_partition_resizing_code()
 	
 	lvm_full_resize_device="/dev/$PT_VG_NAME/lv_$max_pt_name"	
 	
+	string="echo umount"
+	dbg_wr2file_ln_ex $LEVEL_INFO "ks-firstboot" "$string" $ouput_kickoff_file
+	
 	string="umount -l $lvm_full_resize_device"
 	dbg_wr2file_ln_ex $LEVEL_INFO "ks-firstboot" "$string" $ouput_kickoff_file	
 	
+	string="echo lvresize"
+	dbg_wr2file_ln_ex $LEVEL_INFO "ks-firstboot" "$string" $ouput_kickoff_file
+	
 	string="lvresize -rl +100%FREE $lvm_full_resize_device"
+	dbg_wr2file_ln_ex $LEVEL_INFO "ks-firstboot" "$string" $ouput_kickoff_file
+	
+	string="echo mkfs.$fs_type"
+	dbg_wr2file_ln_ex $LEVEL_INFO "ks-firstboot" "$string" $ouput_kickoff_file
+	
+	string="mkfs.$fs_type $lvm_full_resize_device"
+	dbg_wr2file_ln_ex $LEVEL_INFO "ks-firstboot" "$string" $ouput_kickoff_file
+	
+	string="echo mount"
 	dbg_wr2file_ln_ex $LEVEL_INFO "ks-firstboot" "$string" $ouput_kickoff_file
 	
 	string="mount $lvm_full_resize_device $max_pt_mount_point"
